@@ -1,0 +1,2065 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<title>SilverCare Watch · 초고령사회 응급 대응 디바이스 제안</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f17;
+    --bg-2:#11161f;
+    --ink:#e8eaed;
+    --ink-dim:#9aa0a6;
+    --line:rgba(255,255,255,.08);
+    --line-strong:rgba(255,255,255,.16);
+    --red:#ff3b30;
+    --red-soft:#ff7a73;
+    --teal:#7dd3c0;
+    --gold:#e7c98a;
+    --warn:#f5b942;
+    --card:#141b26;
+    --card-hi:#1a2230;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans KR',-apple-system,system-ui,sans-serif;font-weight:400;line-height:1.55;font-size:15px;overflow-x:clip;letter-spacing:-.005em}
+  body{
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(255,59,48,.07), transparent 60%),
+      radial-gradient(900px 500px at -10% 30%, rgba(125,211,192,.05), transparent 60%),
+      var(--bg);
+    min-height:100vh;
+  }
+  ::selection{background:var(--red);color:#fff}
+
+  /* ====== HEADER ====== */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(11,15,23,.85);
+    backdrop-filter:blur(20px) saturate(140%);
+    -webkit-backdrop-filter:blur(20px) saturate(140%);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 18px;
+    max-width:1100px;margin:0 auto;
+  }
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand-mark{
+    width:32px;height:32px;border-radius:9px;
+    background:linear-gradient(135deg,var(--red) 0%, #c8231a 100%);
+    position:relative;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 14px rgba(255,59,48,.35), inset 0 1px 0 rgba(255,255,255,.2);
+  }
+  .brand-mark::before{
+    content:"";position:absolute;inset:0;border-radius:9px;
+    background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 50%);
+  }
+  .brand-mark svg{width:18px;height:18px;color:#fff;position:relative;z-index:1}
+  .brand-name{font-family:'Fraunces',serif;font-weight:600;font-size:18px;letter-spacing:-.01em}
+  .brand-sub{font-size:10px;color:var(--ink-dim);letter-spacing:.12em;text-transform:uppercase;margin-top:-2px}
+
+  .pulse-dot{
+    width:8px;height:8px;border-radius:50%;background:var(--red);
+    animation:pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0 0 rgba(255,59,48,.6)}
+    50%{box-shadow:0 0 0 8px rgba(255,59,48,0)}
+  }
+
+  /* ====== TABS ====== */
+  .tabs{
+    display:flex;gap:0;padding:0 18px 0 18px;
+    max-width:1100px;margin:0 auto;
+    overflow-x:auto;scrollbar-width:none;
+    border-bottom:1px solid var(--line);
+  }
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{
+    background:none;border:none;color:var(--ink-dim);
+    padding:14px 14px 12px;font-size:13px;font-weight:500;
+    font-family:inherit;cursor:pointer;white-space:nowrap;
+    position:relative;letter-spacing:.01em;
+    transition:color .2s;
+  }
+  .tab .num{
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    color:var(--ink-dim);margin-right:6px;opacity:.6;
+  }
+  .tab.active{color:var(--ink)}
+  .tab.active .num{color:var(--red);opacity:1}
+  .tab.active::after{
+    content:"";position:absolute;bottom:-1px;left:14px;right:14px;
+    height:2px;background:var(--red);border-radius:2px;
+  }
+
+  /* ====== MAIN ====== */
+  main{max-width:1100px;margin:0 auto;padding:0 18px 80px}
+  .section{display:none;animation:fadeIn .35s ease}
+  .section.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ====== HERO ====== */
+  .hero{padding:40px 0 24px;position:relative}
+  .hero-tag{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 12px;border-radius:100px;
+    background:rgba(255,59,48,.08);border:1px solid rgba(255,59,48,.2);
+    font-size:11px;color:var(--red-soft);letter-spacing:.08em;text-transform:uppercase;
+    font-weight:500;margin-bottom:20px;
+  }
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:400;font-size:clamp(32px,8vw,52px);
+    line-height:1.05;letter-spacing:-.02em;
+    margin-bottom:18px;
+  }
+  h1 em{font-style:italic;font-weight:300;color:var(--red-soft)}
+  h1 .accent{color:var(--gold);font-weight:500}
+  .lead{
+    font-size:16px;color:var(--ink-dim);line-height:1.6;
+    max-width:580px;margin-bottom:28px;
+  }
+
+  /* ====== KPI GRID ====== */
+  .kpi-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:10px;
+    margin:24px 0;
+  }
+  .kpi{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:18px 16px;
+    position:relative;overflow:hidden;
+  }
+  .kpi::before{
+    content:"";position:absolute;top:0;left:0;width:3px;height:30px;
+    background:var(--red);border-radius:0 2px 2px 0;
+  }
+  .kpi.teal::before{background:var(--teal)}
+  .kpi.gold::before{background:var(--gold)}
+  .kpi-label{font-size:11px;color:var(--ink-dim);letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
+  .kpi-value{font-family:'Fraunces',serif;font-size:28px;font-weight:500;letter-spacing:-.02em;line-height:1.1}
+  .kpi-value .unit{font-size:14px;color:var(--ink-dim);margin-left:3px;font-weight:400}
+  .kpi-note{font-size:11px;color:var(--ink-dim);margin-top:6px}
+
+  /* ====== SECTION TITLE ====== */
+  .section-title{
+    display:flex;align-items:baseline;gap:12px;
+    margin:48px 0 18px;
+  }
+  .section-num{
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    color:var(--red);letter-spacing:.1em;
+  }
+  .section-title h2{
+    font-family:'Fraunces',serif;font-weight:500;
+    font-size:24px;letter-spacing:-.015em;
+  }
+  .section-sub{font-size:13px;color:var(--ink-dim);margin-bottom:20px;line-height:1.6}
+
+  /* ====== CARDS ====== */
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:20px;
+    margin-bottom:12px;
+  }
+  .card h3{
+    font-family:'Fraunces',serif;font-weight:500;
+    font-size:18px;margin-bottom:10px;letter-spacing:-.01em;
+  }
+  .card p{font-size:14px;color:var(--ink-dim);line-height:1.65}
+  .card strong{color:var(--ink);font-weight:500}
+
+  /* ====== PROBLEM STATS ====== */
+  .problem-strip{
+    background:linear-gradient(135deg, rgba(255,59,48,.08), rgba(255,59,48,.02));
+    border:1px solid rgba(255,59,48,.2);
+    border-radius:14px;padding:20px;margin:16px 0;
+  }
+  .problem-strip .big{
+    font-family:'Fraunces',serif;font-size:42px;font-weight:500;
+    color:var(--red-soft);line-height:1;letter-spacing:-.02em;
+  }
+  .problem-strip .label{font-size:13px;color:var(--ink-dim);margin-top:8px}
+
+  /* ====== COMPARISON TABLE ====== */
+  .compare{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:14px;overflow:hidden;margin:16px 0;
+  }
+  .compare-row{
+    display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;
+    padding:14px 12px;border-bottom:1px solid var(--line);
+    font-size:12px;align-items:center;
+  }
+  .compare-row:last-child{border:none}
+  .compare-row.header{
+    background:var(--card-hi);
+    font-weight:500;color:var(--ink);
+    font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+  }
+  .compare-row .feature{color:var(--ink);font-weight:500}
+  .check{color:var(--teal);font-weight:600}
+  .cross{color:var(--ink-dim)}
+  .partial{color:var(--warn)}
+  .ours{color:var(--red-soft);font-weight:600}
+
+  /* ====== WATCH VISUAL ====== */
+  .watch-stage{
+    background:radial-gradient(ellipse at center, rgba(125,211,192,.08), transparent 70%);
+    padding:30px 0 10px;
+    margin:20px 0;
+    position:relative;
+  }
+  .watch-svg{display:block;margin:0 auto;max-width:280px;width:80%;height:auto}
+  .pulse-ring{animation:ring 2s ease-out infinite}
+  @keyframes ring{
+    0%{opacity:.8;r:60}
+    100%{opacity:0;r:120}
+  }
+
+  /* ====== SPEC LIST ====== */
+  .specs{margin:16px 0}
+  .spec-item{
+    display:grid;grid-template-columns:auto 1fr auto;gap:14px;
+    padding:14px 0;border-bottom:1px solid var(--line);
+    align-items:start;
+  }
+  .spec-item:last-child{border:none}
+  .spec-icon{
+    width:36px;height:36px;border-radius:10px;
+    background:var(--card-hi);
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--line);
+  }
+  .spec-icon svg{width:18px;height:18px;color:var(--teal)}
+  .spec-body h4{font-size:14px;font-weight:500;margin-bottom:3px}
+  .spec-body p{font-size:12px;color:var(--ink-dim);line-height:1.5}
+  .spec-cost{
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    color:var(--ink-dim);text-align:right;
+  }
+
+  /* ====== FLOWCHART ====== */
+  .flow{margin:20px 0}
+  .flow-step{
+    display:flex;gap:14px;padding:14px;
+    background:var(--card);border:1px solid var(--line);
+    border-radius:12px;margin-bottom:8px;
+    position:relative;
+  }
+  .flow-num{
+    flex-shrink:0;
+    width:32px;height:32px;border-radius:50%;
+    background:var(--red);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;
+  }
+  .flow-step.safe .flow-num{background:var(--teal);color:#0b0f17}
+  .flow-step.alert .flow-num{background:var(--warn);color:#0b0f17}
+  .flow-body h4{font-size:14px;font-weight:500;margin-bottom:4px}
+  .flow-body p{font-size:12px;color:var(--ink-dim);line-height:1.5}
+  .flow-time{
+    position:absolute;top:14px;right:14px;
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    color:var(--ink-dim);letter-spacing:.05em;
+  }
+
+  /* ====== BUSINESS MODEL ====== */
+  .bm-grid{display:grid;gap:10px;margin:16px 0}
+  .bm-card{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:18px;
+    position:relative;overflow:hidden;
+  }
+  .bm-card::after{
+    content:attr(data-tag);
+    position:absolute;top:14px;right:14px;
+    font-family:'JetBrains Mono',monospace;font-size:9px;
+    color:var(--ink-dim);letter-spacing:.1em;
+    padding:3px 7px;border:1px solid var(--line);border-radius:100px;
+  }
+  .bm-card h4{
+    font-family:'Fraunces',serif;font-weight:500;font-size:16px;
+    margin-bottom:10px;letter-spacing:-.01em;
+  }
+  .bm-card .price{
+    font-family:'Fraunces',serif;font-size:24px;font-weight:500;
+    color:var(--gold);margin:8px 0;letter-spacing:-.02em;
+  }
+  .bm-card p{font-size:12px;color:var(--ink-dim);line-height:1.6}
+  .bm-card ul{list-style:none;padding:0;margin:8px 0 0}
+  .bm-card li{font-size:12px;color:var(--ink-dim);padding:4px 0;padding-left:14px;position:relative}
+  .bm-card li::before{
+    content:"";position:absolute;left:0;top:11px;
+    width:6px;height:1px;background:var(--teal);
+  }
+
+  /* ====== UNIT ECONOMICS ====== */
+  .econ{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:20px;margin:16px 0;
+  }
+  .econ-title{font-size:12px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px}
+  .econ-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:10px 0;border-bottom:1px dashed var(--line);
+    font-size:13px;
+  }
+  .econ-row:last-child{border:none}
+  .econ-row .label{color:var(--ink-dim)}
+  .econ-row .val{font-family:'JetBrains Mono',monospace;color:var(--ink)}
+  .econ-row.total{padding-top:14px;margin-top:6px;border-top:1px solid var(--line-strong);border-bottom:none}
+  .econ-row.total .label{color:var(--ink);font-weight:600}
+  .econ-row.total .val{font-family:'Fraunces',serif;font-size:18px;color:var(--gold)}
+
+  /* ====== PROPOSAL ====== */
+  .proposal-meta{
+    background:var(--card-hi);border:1px solid var(--line);
+    border-radius:14px;padding:16px;margin:16px 0;
+    font-size:12px;
+  }
+  .proposal-meta-row{
+    display:grid;grid-template-columns:90px 1fr;
+    padding:6px 0;border-bottom:1px dashed var(--line);
+  }
+  .proposal-meta-row:last-child{border:none}
+  .proposal-meta-row .k{color:var(--ink-dim)}
+  .proposal-meta-row .v{color:var(--ink)}
+
+  .doc-section{margin:24px 0}
+  .doc-section h3{
+    font-family:'Fraunces',serif;font-size:18px;font-weight:500;
+    margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line);
+    display:flex;align-items:baseline;gap:10px;
+  }
+  .doc-section h3 .n{
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    color:var(--red);letter-spacing:.1em;
+  }
+  .doc-section h4{font-size:14px;font-weight:500;margin:14px 0 6px}
+  .doc-section p{font-size:13px;color:var(--ink-dim);line-height:1.7;margin-bottom:8px}
+  .doc-section ul, .doc-section ol{font-size:13px;color:var(--ink-dim);line-height:1.7;padding-left:20px;margin:8px 0}
+  .doc-section li{margin-bottom:4px}
+  .doc-section strong{color:var(--ink);font-weight:500}
+
+  .copy-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:10px 16px;background:var(--red);color:#fff;
+    border:none;border-radius:10px;font-family:inherit;font-size:13px;
+    font-weight:500;cursor:pointer;margin:16px 0;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .copy-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(255,59,48,.3)}
+  .copy-btn:active{transform:translateY(0)}
+
+  /* ====== REFERENCES ====== */
+  .ref-group{margin:20px 0}
+  .ref-group-title{
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    color:var(--ink-dim);letter-spacing:.12em;text-transform:uppercase;
+    margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--line);
+  }
+  .ref-item{
+    display:block;
+    background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:14px;margin-bottom:8px;
+    text-decoration:none;color:inherit;
+    transition:border-color .2s, transform .15s;
+  }
+  .ref-item:hover{border-color:var(--teal);transform:translateX(2px)}
+  .ref-item h4{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:4px;line-height:1.4}
+  .ref-item .ref-url{
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    color:var(--teal);word-break:break-all;
+  }
+  .ref-item .ref-desc{font-size:11px;color:var(--ink-dim);margin-top:6px;line-height:1.5}
+
+  /* ====== INTERACTIVE: simulator ====== */
+  .sim{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:20px;margin:20px 0;
+  }
+  .sim-title{
+    display:flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:500;margin-bottom:14px;
+  }
+  .sim-stage{
+    background:#06090f;border-radius:12px;padding:18px;
+    border:1px solid var(--line);
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    min-height:160px;
+    overflow:hidden;position:relative;
+  }
+  .sim-line{margin:4px 0;color:var(--ink-dim);opacity:0;animation:typein .4s forwards}
+  .sim-line.ok{color:var(--teal)}
+  .sim-line.warn{color:var(--warn)}
+  .sim-line.alert{color:var(--red-soft)}
+  @keyframes typein{to{opacity:1}}
+  .sim-btn{
+    margin-top:12px;padding:10px 16px;background:transparent;
+    color:var(--ink);border:1px solid var(--line-strong);border-radius:10px;
+    font-family:inherit;font-size:12px;font-weight:500;cursor:pointer;
+    transition:background .2s, border-color .2s;
+  }
+  .sim-btn:hover{background:var(--card-hi);border-color:var(--red)}
+
+  /* ====== FOOTER ====== */
+  footer{
+    border-top:1px solid var(--line);
+    padding:30px 18px;margin-top:40px;
+    text-align:center;
+    color:var(--ink-dim);font-size:11px;
+  }
+  footer .brand-name{font-size:13px;color:var(--ink);margin-bottom:4px;display:block}
+
+  /* ====== TABLET / DESKTOP ====== */
+  @media (min-width:720px){
+    body{font-size:16px}
+    .kpi-grid{grid-template-columns:repeat(4,1fr)}
+    .bm-grid{grid-template-columns:repeat(3,1fr)}
+    h1{font-size:64px}
+    .hero{padding:60px 0 30px}
+    .watch-svg{max-width:340px}
+  }
+
+  /* ====== SCROLL HINT ====== */
+  .scroll-hint{
+    display:inline-flex;align-items:center;gap:10px;
+    margin-top:30px;font-size:11px;color:var(--ink-dim);
+    letter-spacing:.08em;text-transform:uppercase;font-weight:500;
+    animation:bob 2.4s ease-in-out infinite;
+  }
+  @keyframes bob{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(4px)}
+  }
+
+  /* ====== SCROLL SCENE (sticky rotator) ====== */
+  .scroll-scene{
+    position:relative;
+    margin:40px -18px 0;
+    background:linear-gradient(180deg, transparent 0%, rgba(125,211,192,.03) 40%, rgba(125,211,192,.03) 60%, transparent 100%);
+  }
+  .scroll-track{
+    display:flex;flex-direction:column;
+    position:relative;
+  }
+  .scroll-sticky{
+    position:sticky;top:90px;
+    height:62vh;min-height:380px;max-height:520px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:
+      radial-gradient(ellipse at center, rgba(125,211,192,.06), transparent 65%),
+      radial-gradient(circle at 30% 70%, rgba(255,59,48,.04), transparent 60%);
+    z-index:1;
+    border-bottom:1px solid var(--line);
+  }
+  .watch-rotator{
+    position:relative;width:100%;height:100%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .watch-view{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    opacity:0;transform:scale(.85) rotateY(40deg);
+    transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1);
+    pointer-events:none;
+    will-change:opacity, transform;
+  }
+  .watch-view.active{
+    opacity:1;transform:scale(1) rotateY(0deg);pointer-events:auto;
+  }
+  .watch-view svg.watch-svg{
+    max-width:240px;width:60%;height:auto;
+    filter:drop-shadow(0 20px 30px rgba(0,0,0,.4));
+  }
+  .view-label{
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    color:var(--ink-dim);letter-spacing:.15em;text-transform:uppercase;
+    margin-top:18px;padding:6px 14px;
+    border:1px solid var(--line);border-radius:100px;
+    background:rgba(11,15,23,.5);
+  }
+  .view-dots{
+    position:absolute;bottom:18px;left:50%;
+    transform:translateX(-50%);
+    display:flex;gap:8px;z-index:2;
+  }
+  .view-dots .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--line-strong);transition:background .3s, width .3s;
+  }
+  .view-dots .dot.active{
+    background:var(--red);width:18px;border-radius:3px;
+  }
+
+  /* SCROLL STEPS (drive the rotator) */
+  .scroll-steps{
+    position:relative;z-index:2;
+  }
+  .scroll-step{
+    min-height:80vh;
+    padding:30px 18px 30px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    max-width:600px;margin:0 auto;
+  }
+  .scroll-step .step-num{
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    color:var(--red);letter-spacing:.15em;margin-bottom:14px;
+    display:inline-block;width:fit-content;
+    padding:4px 10px;background:rgba(255,59,48,.08);
+    border:1px solid rgba(255,59,48,.2);border-radius:100px;
+  }
+  .scroll-step h3{
+    font-family:'Fraunces',serif;font-weight:500;
+    font-size:26px;letter-spacing:-.015em;
+    margin-bottom:12px;line-height:1.15;
+  }
+  .scroll-step p{
+    font-size:14px;color:var(--ink-dim);line-height:1.7;
+    margin-bottom:14px;
+  }
+  .scroll-step strong{color:var(--ink);font-weight:500}
+  .step-bullets{list-style:none;padding:0;margin:0}
+  .step-bullets li{
+    font-size:13px;color:var(--ink-dim);
+    padding:8px 0 8px 18px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  .step-bullets li::before{
+    content:"";position:absolute;left:0;top:15px;
+    width:8px;height:1px;background:var(--teal);
+  }
+  .step-bullets li:last-child{border:none}
+
+  /* ====== PCB ANATOMY ====== */
+  .pcb-stage{
+    background:
+      radial-gradient(ellipse at center, rgba(45,90,64,.15), transparent 70%),
+      var(--card);
+    border:1px solid var(--line);border-radius:14px;
+    padding:20px;margin:20px 0;
+    display:flex;justify-content:center;
+  }
+  .pcb-svg{max-width:360px;width:100%;height:auto;display:block}
+  .pcb-chip{cursor:pointer;transition:filter .25s}
+  .pcb-chip:hover{filter:drop-shadow(0 0 8px rgba(255,59,48,.6)) brightness(1.3)}
+
+  .pcb-legend{
+    display:grid;gap:6px;margin:0 0 16px;
+    background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:14px 16px;
+  }
+  .legend-item{
+    display:flex;gap:12px;align-items:flex-start;
+    font-size:12px;color:var(--ink-dim);line-height:1.5;
+  }
+  .legend-item .ln{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--red-soft);font-weight:700;flex-shrink:0;
+    min-width:18px;
+  }
+
+  /* Desktop: side-by-side scroll layout */
+  @media (min-width:900px){
+    .scroll-track{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:flex-start}
+    .scroll-sticky{height:90vh;max-height:none;top:80px}
+    .scroll-step{min-height:90vh;padding:60px 30px}
+    .watch-view svg.watch-svg{max-width:300px;width:70%}
+  }
+
+  /* Mobile: opaque pinned watch above the scrolling text (no overlap) */
+  @media (max-width:899px){
+    .scroll-sticky{
+      top:122px;            /* clear the 116px sticky header */
+      height:54vh;max-height:470px;
+      z-index:3;            /* above .scroll-steps (z-index:2) */
+      background-color:var(--bg);  /* opaque: text passes behind, not over */
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">SilverCare<span style="color:var(--red)">·</span></div>
+        <div class="brand-sub">Emergency Watch System</div>
+      </div>
+    </div>
+    <div class="pulse-dot" aria-label="활성"></div>
+  </div>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab active" data-tab="problem"><span class="num">01</span>문제·시장</button>
+    <button class="tab" data-tab="product"><span class="num">02</span>제품 설계</button>
+    <button class="tab" data-tab="business"><span class="num">03</span>사업 모델</button>
+    <button class="tab" data-tab="proposal"><span class="num">04</span>제안서</button>
+    <button class="tab" data-tab="refs"><span class="num">05</span>레퍼런스</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============================ -->
+<!-- TAB 1: PROBLEM & MARKET     -->
+<!-- ============================ -->
+<section class="section active" id="problem">
+  <div class="hero">
+    <div class="hero-tag">
+      <span class="pulse-dot" style="width:6px;height:6px"></span>
+      KOREA · 2025 초고령사회 진입
+    </div>
+    <h1>4분의 침묵이<br><em>한 사람의 삶을</em><br><span class="accent">앗아간다.</span></h1>
+    <p class="lead">
+      심정지 발생 후 뇌 손상이 시작되기까지 단 4분.<br>
+      홀로 사는 어르신에게는 그 4분조차 없을 수 있습니다.<br>
+      <strong style="color:var(--ink)">SilverCare Watch</strong>는 그 침묵을 깨는 가장 저렴한 방법을 제안합니다.
+    </p>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">65세 이상 인구</div>
+      <div class="kpi-value">1,051<span class="unit">만 명</span></div>
+      <div class="kpi-note">2025년 전체의 20.3%</div>
+    </div>
+    <div class="kpi teal">
+      <div class="kpi-label">75세 이상 (고위험군)</div>
+      <div class="kpi-value">430<span class="unit">만 명</span></div>
+      <div class="kpi-note">심혈관계 위험 집중</div>
+    </div>
+    <div class="kpi gold">
+      <div class="kpi-label">2036 고령인구 비중</div>
+      <div class="kpi-value">30<span class="unit">%</span></div>
+      <div class="kpi-note">10년 내 임박</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">심정지 골든타임</div>
+      <div class="kpi-value">4<span class="unit">분</span></div>
+      <div class="kpi-note">뇌손상 시작 시점</div>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <span class="section-num">[01·1]</span>
+    <h2>왜 지금인가</h2>
+  </div>
+  <div class="section-sub">
+    한국은 2025년 처음으로 65세 이상 인구가 전체의 20%를 넘는 '초고령사회'에 진입했습니다.
+    독거노인 1인 가구가 빠르게 증가하고 있고, 심정지의 60% 이상이 가정에서 발생합니다.
+  </div>
+
+  <div class="problem-strip">
+    <div class="big">8 / 10</div>
+    <div class="label">병원 밖 심정지의 약 80%가 가정에서 발생 — 즉시 발견되지 못하면 무목격 심정지(unwitnessed OHCA)가 됩니다.</div>
+  </div>
+
+  <div class="section-title">
+    <span class="section-num">[01·2]</span>
+    <h2>기존 솔루션의 한계</h2>
+  </div>
+
+  <div class="compare">
+    <div class="compare-row header">
+      <div>기능</div>
+      <div>Apple Watch</div>
+      <div>Galaxy Watch</div>
+      <div>SilverCare</div>
+    </div>
+    <div class="compare-row">
+      <div class="feature">낙상 자동 감지</div>
+      <div class="check">●</div>
+      <div class="check">●</div>
+      <div class="ours">●</div>
+    </div>
+    <div class="compare-row">
+      <div class="feature">심정지 자동 감지</div>
+      <div class="cross">○</div>
+      <div class="cross">○</div>
+      <div class="ours">●</div>
+    </div>
+    <div class="compare-row">
+      <div class="feature">119 자동 호출</div>
+      <div class="check">●</div>
+      <div class="partial">◐</div>
+      <div class="ours">●</div>
+    </div>
+    <div class="compare-row">
+      <div class="feature">폰 없이 단독 작동</div>
+      <div class="partial">◐</div>
+      <div class="partial">◐</div>
+      <div class="ours">●</div>
+    </div>
+    <div class="compare-row">
+      <div class="feature">배터리 7일 이상</div>
+      <div class="cross">○</div>
+      <div class="cross">○</div>
+      <div class="ours">●</div>
+    </div>
+    <div class="compare-row">
+      <div class="feature">소비자 가격</div>
+      <div class="cross">60만+</div>
+      <div class="cross">35만+</div>
+      <div class="ours">5만 이하</div>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <span class="section-num">[01·3]</span>
+    <h2>시장 기회</h2>
+  </div>
+
+  <div class="card">
+    <h3>가용 시장(SAM) 추정</h3>
+    <p>
+      독거노인 약 <strong>220만 가구</strong>를 1차 타깃으로 가정.
+      디바이스 단가 5만 원 + 통신·서비스 월 4천 원 × 12개월 = 가구당 연 <strong>9만 8천 원</strong>.
+      이론적 SAM은 <strong>약 2,156억 원/년</strong> 규모이며, B2G(정부·지자체) 보급 모델 적용 시
+      초기 5년 누적 시장은 <strong>1조 원 이상</strong>으로 확대 가능합니다.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>정책적 정합성</h3>
+    <p>
+      보건복지부의 <strong>독거노인·중증장애인 응급안전안심서비스</strong>가 이미 전국 30만 가구 이상에 게이트웨이·화재감지기 등을 설치하고 있으나, 손목 착용형 생체신호 기반 솔루션은 부재합니다. SilverCare는 기존 서비스의 빈 공백 — <strong>외출 중 응급·심정지 감지</strong> — 을 보완하는 위치에 있습니다.
+    </p>
+  </div>
+</section>
+
+
+<!-- ============================ -->
+<!-- TAB 2: PRODUCT DESIGN       -->
+<!-- ============================ -->
+<section class="section" id="product">
+
+  <!-- ============================================== -->
+  <!--  HERO INTRO                                    -->
+  <!-- ============================================== -->
+  <div class="hero">
+    <div class="hero-tag">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--teal)"></span>
+      PRODUCT DESIGN · v0.3 (가안)
+    </div>
+    <h1>한 손에<br><em>병원이</em><br><span class="accent">머무른다.</span></h1>
+    <p class="lead">
+      RTOS 기반 저전력 단일 보드. 큰 SOS 버튼 1개와 e-ink 디스플레이.<br>
+      Cat-M1 모뎀으로 폰 없이 119와 직접 연결됩니다.
+    </p>
+    <div class="scroll-hint">
+      <span>스크롤하여 디자인 살펴보기</span>
+      <svg width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="1" y="1" width="12" height="18" rx="6"/>
+        <circle cx="7" cy="6" r="1.5" fill="currentColor"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!--  SECTION A: 4-VIEW ORTHOGRAPHIC               -->
+  <!--  스크롤하면 워치가 전면→측면→후면→내부 순으로 회전 -->
+  <!-- ============================================== -->
+  <div class="scroll-scene" id="sceneRotation">
+    <div class="scroll-track">
+
+      <!-- LEFT: sticky watch stage -->
+      <div class="scroll-sticky">
+        <div class="watch-rotator" id="watchRotator">
+
+          <!-- VIEW 1: FRONT -->
+          <div class="watch-view active" data-view="front">
+            <svg viewBox="0 0 320 420" class="watch-svg">
+              <!-- pulse rings -->
+              <circle cx="160" cy="210" r="60" fill="none" stroke="#ff3b30" stroke-width="1" opacity=".25" class="pulse-ring"/>
+              <circle cx="160" cy="210" r="60" fill="none" stroke="#ff3b30" stroke-width="1" opacity=".4" class="pulse-ring" style="animation-delay:.7s"/>
+
+              <!-- top strap -->
+              <path d="M 110 50 L 210 50 L 220 100 L 100 100 Z" fill="#1a2230" stroke="#2a3445" stroke-width="1"/>
+              <line x1="110" y1="65" x2="210" y2="65" stroke="#0b0f17" stroke-width="0.5"/>
+              <line x1="108" y1="78" x2="212" y2="78" stroke="#0b0f17" stroke-width="0.5"/>
+              <line x1="106" y1="91" x2="214" y2="91" stroke="#0b0f17" stroke-width="0.5"/>
+
+              <!-- bottom strap -->
+              <path d="M 100 320 L 220 320 L 210 370 L 110 370 Z" fill="#1a2230" stroke="#2a3445" stroke-width="1"/>
+              <line x1="106" y1="333" x2="214" y2="333" stroke="#0b0f17" stroke-width="0.5"/>
+              <line x1="108" y1="346" x2="212" y2="346" stroke="#0b0f17" stroke-width="0.5"/>
+              <line x1="110" y1="358" x2="210" y2="358" stroke="#0b0f17" stroke-width="0.5"/>
+
+              <!-- watch body -->
+              <rect x="80" y="100" width="160" height="220" rx="32" fill="#11161f" stroke="#3a4658" stroke-width="2"/>
+              <rect x="84" y="104" width="152" height="212" rx="29" fill="none" stroke="#2a3445" stroke-width="1"/>
+              <rect x="88" y="108" width="144" height="204" rx="26" fill="none" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+
+              <!-- side SOS button -->
+              <rect x="240" y="180" width="14" height="50" rx="3" fill="#ff3b30" stroke="#c8231a" stroke-width="1"/>
+              <!-- side power button -->
+              <rect x="240" y="140" width="12" height="20" rx="2" fill="#2a3445"/>
+
+              <!-- e-ink display -->
+              <rect x="100" y="120" width="120" height="180" rx="18" fill="#dfd9c8"/>
+
+              <!-- display content -->
+              <text x="160" y="148" font-family="Fraunces" font-size="11" fill="#3a3530" text-anchor="middle" letter-spacing="2">SILVERCARE</text>
+              <text x="160" y="194" font-family="Fraunces" font-size="40" font-weight="500" fill="#1a1a1a" text-anchor="middle" letter-spacing="-1">14:32</text>
+              <text x="160" y="214" font-family="IBM Plex Sans KR" font-size="9" fill="#5a5550" text-anchor="middle">5월 15일 금요일</text>
+
+              <g transform="translate(118, 235)">
+                <path d="M 0 4 L 4 4 L 6 0 L 10 8 L 12 4 L 16 4" stroke="#c8231a" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="22" y="7" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#1a1a1a">72</text>
+                <text x="42" y="7" font-family="IBM Plex Sans KR" font-size="7" fill="#5a5550">bpm</text>
+              </g>
+
+              <g transform="translate(118, 252)">
+                <rect x="0" y="0" width="14" height="7" rx="1" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+                <rect x="14" y="2" width="2" height="3" fill="#1a1a1a"/>
+                <rect x="2" y="2" width="10" height="3" fill="#1a1a1a"/>
+                <text x="22" y="6" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#1a1a1a">6일</text>
+              </g>
+
+              <g transform="translate(160, 252)">
+                <rect x="0" y="4" width="2" height="3" fill="#1a1a1a"/>
+                <rect x="3" y="2" width="2" height="5" fill="#1a1a1a"/>
+                <rect x="6" y="0" width="2" height="7" fill="#1a1a1a"/>
+                <text x="13" y="6" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#1a1a1a">LTE-M</text>
+              </g>
+
+              <rect x="115" y="270" width="90" height="22" rx="11" fill="#c8231a"/>
+              <text x="160" y="285" font-family="IBM Plex Sans KR" font-size="11" font-weight="700" fill="white" text-anchor="middle">긴급 호출</text>
+            </svg>
+            <div class="view-label">전면 · FRONT</div>
+          </div>
+
+          <!-- VIEW 2: SIDE (RIGHT) -->
+          <div class="watch-view" data-view="side">
+            <svg viewBox="0 0 320 420" class="watch-svg">
+              <!-- top strap profile -->
+              <path d="M 130 50 L 175 50 L 178 100 L 127 100 Z" fill="#1a2230" stroke="#2a3445" stroke-width="1"/>
+              <line x1="130" y1="65" x2="175" y2="65" stroke="#0b0f17" stroke-width="0.5"/>
+              <line x1="129" y1="78" x2="176" y2="78" stroke="#0b0f17" stroke-width="0.5"/>
+              <line x1="128" y1="91" x2="177" y2="91" stroke="#0b0f17" stroke-width="0.5"/>
+
+              <!-- bottom strap profile -->
+              <path d="M 127 320 L 178 320 L 175 370 L 130 370 Z" fill="#1a2230" stroke="#2a3445" stroke-width="1"/>
+              <line x1="128" y1="333" x2="177" y2="333" stroke="#0b0f17" stroke-width="0.5"/>
+              <line x1="129" y1="346" x2="176" y2="346" stroke="#0b0f17" stroke-width="0.5"/>
+              <line x1="130" y1="358" x2="175" y2="358" stroke="#0b0f17" stroke-width="0.5"/>
+
+              <!-- watch body side profile (showing thickness) -->
+              <rect x="125" y="100" width="55" height="220" rx="14" fill="#161d28" stroke="#3a4658" stroke-width="2"/>
+
+              <!-- layer lines (showing stack) -->
+              <line x1="125" y1="115" x2="180" y2="115" stroke="#2a3445" stroke-width="0.5"/>
+              <line x1="125" y1="125" x2="180" y2="125" stroke="rgba(125,211,192,.3)" stroke-width="0.5" stroke-dasharray="2,2"/>
+              <text x="186" y="120" font-family="JetBrains Mono" font-size="7" fill="#7dd3c0">e-ink</text>
+
+              <line x1="125" y1="160" x2="180" y2="160" stroke="rgba(125,211,192,.3)" stroke-width="0.5" stroke-dasharray="2,2"/>
+              <text x="186" y="158" font-family="JetBrains Mono" font-size="7" fill="#7dd3c0">PCB</text>
+
+              <line x1="125" y1="220" x2="180" y2="220" stroke="rgba(125,211,192,.3)" stroke-width="0.5" stroke-dasharray="2,2"/>
+              <text x="186" y="218" font-family="JetBrains Mono" font-size="7" fill="#7dd3c0">배터리</text>
+
+              <line x1="125" y1="295" x2="180" y2="295" stroke="rgba(125,211,192,.3)" stroke-width="0.5" stroke-dasharray="2,2"/>
+              <text x="186" y="293" font-family="JetBrains Mono" font-size="7" fill="#7dd3c0">후면판</text>
+
+              <!-- SOS button (extruded) -->
+              <rect x="180" y="180" width="20" height="50" rx="4" fill="#ff3b30" stroke="#c8231a" stroke-width="1"/>
+              <rect x="180" y="185" width="20" height="3" fill="rgba(255,255,255,.2)"/>
+              <text x="205" y="208" font-family="JetBrains Mono" font-size="8" fill="#ff7a73">SOS</text>
+
+              <!-- power button -->
+              <rect x="180" y="140" width="16" height="20" rx="3" fill="#2a3445" stroke="#1a2230" stroke-width="1"/>
+              <text x="200" y="153" font-family="JetBrains Mono" font-size="7" fill="#7dd3c0">PWR</text>
+
+              <!-- speaker grille (left side, top) -->
+              <g transform="translate(118, 150)">
+                <circle cx="0" cy="0" r="1" fill="#3a4658"/>
+                <circle cx="0" cy="5" r="1" fill="#3a4658"/>
+                <circle cx="0" cy="10" r="1" fill="#3a4658"/>
+                <circle cx="0" cy="15" r="1" fill="#3a4658"/>
+              </g>
+              <text x="105" y="160" font-family="JetBrains Mono" font-size="7" fill="#7dd3c0" text-anchor="end">스피커</text>
+
+              <!-- mic hole -->
+              <circle cx="121" cy="200" r="1.5" fill="#0b0f17" stroke="#3a4658"/>
+              <text x="105" y="203" font-family="JetBrains Mono" font-size="7" fill="#7dd3c0" text-anchor="end">마이크</text>
+
+              <!-- charging contacts (bottom) -->
+              <circle cx="140" cy="312" r="2" fill="#c0a060"/>
+              <circle cx="160" cy="312" r="2" fill="#c0a060"/>
+              <text x="105" y="316" font-family="JetBrains Mono" font-size="7" fill="#7dd3c0" text-anchor="end">충전 단자</text>
+            </svg>
+            <div class="view-label">측면 · SIDE</div>
+          </div>
+
+          <!-- VIEW 3: BACK -->
+          <div class="watch-view" data-view="back">
+            <svg viewBox="0 0 320 420" class="watch-svg">
+              <!-- top strap -->
+              <path d="M 110 50 L 210 50 L 220 100 L 100 100 Z" fill="#161d28" stroke="#2a3445" stroke-width="1"/>
+              <line x1="110" y1="65" x2="210" y2="65" stroke="#0b0f17" stroke-width="0.5"/>
+              <line x1="108" y1="78" x2="212" y2="78" stroke="#0b0f17" stroke-width="0.5"/>
+              <line x1="106" y1="91" x2="214" y2="91" stroke="#0b0f17" stroke-width="0.5"/>
+
+              <!-- bottom strap -->
+              <path d="M 100 320 L 220 320 L 210 370 L 110 370 Z" fill="#161d28" stroke="#2a3445" stroke-width="1"/>
+
+              <!-- back plate -->
+              <rect x="80" y="100" width="160" height="220" rx="32" fill="#0e1320" stroke="#3a4658" stroke-width="2"/>
+              <rect x="84" y="104" width="152" height="212" rx="29" fill="none" stroke="#2a3445" stroke-width="0.5"/>
+
+              <!-- PPG sensor cluster (center) -->
+              <g transform="translate(160, 200)">
+                <!-- outer glass dome -->
+                <circle r="32" fill="#1a2230" stroke="#3a4658" stroke-width="1"/>
+                <circle r="30" fill="#0e1320" opacity="0.6"/>
+
+                <!-- LEDs and photodiodes -->
+                <circle cx="-14" cy="0" r="4" fill="#7dd3c0" opacity="0.9"/>
+                <circle cx="-14" cy="0" r="2.5" fill="#0e1320"/>
+                <text x="-14" y="2" font-family="JetBrains Mono" font-size="4" fill="#7dd3c0" text-anchor="middle">G</text>
+
+                <circle cx="14" cy="0" r="4" fill="#ff5252" opacity="0.6"/>
+                <circle cx="14" cy="0" r="2.5" fill="#0e1320"/>
+                <text x="14" y="2" font-family="JetBrains Mono" font-size="4" fill="#ff7a73" text-anchor="middle">IR</text>
+
+                <circle cx="0" cy="-12" r="3" fill="#2a3445" stroke="#3a4658" stroke-width="0.5"/>
+                <text x="0" y="-10" font-family="JetBrains Mono" font-size="4" fill="#9aa0a6" text-anchor="middle">PD</text>
+
+                <circle cx="0" cy="12" r="3" fill="#2a3445" stroke="#3a4658" stroke-width="0.5"/>
+                <text x="0" y="14" font-family="JetBrains Mono" font-size="4" fill="#9aa0a6" text-anchor="middle">PD</text>
+              </g>
+
+              <!-- charging contacts -->
+              <circle cx="135" cy="280" r="4" fill="#c0a060" stroke="#8a7340" stroke-width="0.5"/>
+              <circle cx="160" cy="280" r="4" fill="#c0a060" stroke="#8a7340" stroke-width="0.5"/>
+              <circle cx="185" cy="280" r="4" fill="#c0a060" stroke="#8a7340" stroke-width="0.5"/>
+
+              <!-- regulatory marks -->
+              <g transform="translate(160, 138)" font-family="JetBrains Mono" font-size="6" fill="#5a6478">
+                <text text-anchor="middle">SilverCare Watch SC-1</text>
+                <text y="9" text-anchor="middle">Model: SCW-A1 · IP67</text>
+                <text y="18" text-anchor="middle">KC · MFDS Class II</text>
+              </g>
+
+              <!-- strap release pin -->
+              <circle cx="120" cy="100" r="2" fill="#3a4658"/>
+              <circle cx="200" cy="100" r="2" fill="#3a4658"/>
+              <circle cx="120" cy="320" r="2" fill="#3a4658"/>
+              <circle cx="200" cy="320" r="2" fill="#3a4658"/>
+            </svg>
+            <div class="view-label">후면 · BACK (PPG 센서)</div>
+          </div>
+
+          <!-- VIEW 4: EXPLODED INTERNALS -->
+          <div class="watch-view" data-view="explode">
+            <svg viewBox="0 0 320 520" class="watch-svg">
+              <!-- floor shadow -->
+              <ellipse cx="160" cy="500" rx="80" ry="6" fill="#000" opacity="0.4"/>
+
+              <!-- LAYER 1: Top glass/bezel -->
+              <g transform="translate(0, 30)">
+                <ellipse cx="160" cy="0" rx="72" ry="14" fill="#1a2230" stroke="#3a4658" stroke-width="1.5" opacity="0.95"/>
+                <ellipse cx="160" cy="-2" rx="68" ry="11" fill="#0e1320" opacity="0.4"/>
+                <text x="245" y="2" font-family="JetBrains Mono" font-size="8" fill="#7dd3c0">탑 베젤·강화유리</text>
+                <line x1="232" y1="0" x2="222" y2="0" stroke="#7dd3c0" stroke-width="0.5" stroke-dasharray="2,2"/>
+              </g>
+
+              <!-- LAYER 2: e-ink display -->
+              <g transform="translate(0, 90)">
+                <ellipse cx="160" cy="0" rx="64" ry="12" fill="#dfd9c8" stroke="#9a9180" stroke-width="1"/>
+                <text x="160" y="2" font-family="Fraunces" font-size="8" fill="#3a3530" text-anchor="middle">14:32</text>
+                <text x="245" y="2" font-family="JetBrains Mono" font-size="8" fill="#7dd3c0">e-ink 1.5" 디스플레이</text>
+                <line x1="232" y1="0" x2="222" y2="0" stroke="#7dd3c0" stroke-width="0.5" stroke-dasharray="2,2"/>
+              </g>
+
+              <!-- LAYER 3: PCB main board -->
+              <g transform="translate(0, 160)">
+                <ellipse cx="160" cy="0" rx="66" ry="13" fill="#1a3a2a" stroke="#2d5a40" stroke-width="1"/>
+                <!-- chip rectangles on board -->
+                <rect x="135" y="-4" width="14" height="8" fill="#0e1320" stroke="#3a4658" stroke-width="0.3"/>
+                <rect x="155" y="-3" width="10" height="6" fill="#0e1320" stroke="#3a4658" stroke-width="0.3"/>
+                <rect x="172" y="-5" width="16" height="10" fill="#0e1320" stroke="#3a4658" stroke-width="0.3"/>
+                <text x="245" y="2" font-family="JetBrains Mono" font-size="8" fill="#7dd3c0">메인 PCB · MCU/모뎀</text>
+                <line x1="225" y1="0" x2="218" y2="0" stroke="#7dd3c0" stroke-width="0.5" stroke-dasharray="2,2"/>
+              </g>
+
+              <!-- LAYER 4: Battery -->
+              <g transform="translate(0, 240)">
+                <ellipse cx="160" cy="0" rx="62" ry="14" fill="#2a4660" stroke="#4d6b85" stroke-width="1"/>
+                <ellipse cx="160" cy="-3" rx="58" ry="10" fill="#3a5670" opacity="0.6"/>
+                <text x="160" y="2" font-family="JetBrains Mono" font-size="7" fill="#cce5ff" text-anchor="middle">380mAh</text>
+                <text x="245" y="2" font-family="JetBrains Mono" font-size="8" fill="#7dd3c0">LiPo 배터리</text>
+                <line x1="225" y1="0" x2="218" y2="0" stroke="#7dd3c0" stroke-width="0.5" stroke-dasharray="2,2"/>
+              </g>
+
+              <!-- LAYER 5: PPG sensor module -->
+              <g transform="translate(0, 320)">
+                <ellipse cx="160" cy="0" rx="60" ry="12" fill="#1a2230" stroke="#3a4658" stroke-width="1"/>
+                <circle cx="148" cy="0" r="3" fill="#7dd3c0" opacity="0.8"/>
+                <circle cx="160" cy="0" r="2.5" fill="#2a3445"/>
+                <circle cx="172" cy="0" r="3" fill="#ff5252" opacity="0.6"/>
+                <text x="245" y="2" font-family="JetBrains Mono" font-size="8" fill="#7dd3c0">PPG 센서 모듈</text>
+                <line x1="222" y1="0" x2="212" y2="0" stroke="#7dd3c0" stroke-width="0.5" stroke-dasharray="2,2"/>
+              </g>
+
+              <!-- LAYER 6: Back plate + sensor window -->
+              <g transform="translate(0, 400)">
+                <ellipse cx="160" cy="0" rx="70" ry="14" fill="#0e1320" stroke="#3a4658" stroke-width="1.5"/>
+                <ellipse cx="160" cy="-1" rx="20" ry="4" fill="#1a2230"/>
+                <text x="245" y="2" font-family="JetBrains Mono" font-size="8" fill="#7dd3c0">후면 하우징</text>
+                <line x1="220" y1="0" x2="212" y2="0" stroke="#7dd3c0" stroke-width="0.5" stroke-dasharray="2,2"/>
+              </g>
+
+              <!-- connection arrows -->
+              <g stroke="#3a4658" stroke-width="0.5" fill="none" stroke-dasharray="1,2" opacity="0.4">
+                <line x1="160" y1="45" x2="160" y2="78"/>
+                <line x1="160" y1="105" x2="160" y2="148"/>
+                <line x1="160" y1="175" x2="160" y2="226"/>
+                <line x1="160" y1="255" x2="160" y2="308"/>
+                <line x1="160" y1="333" x2="160" y2="388"/>
+              </g>
+            </svg>
+            <div class="view-label">분해도 · EXPLODED VIEW</div>
+          </div>
+
+        </div>
+
+        <!-- view dots indicator -->
+        <div class="view-dots">
+          <span class="dot active" data-i="0"></span>
+          <span class="dot" data-i="1"></span>
+          <span class="dot" data-i="2"></span>
+          <span class="dot" data-i="3"></span>
+        </div>
+      </div>
+
+      <!-- SCROLL STEPS (text panels that drive the view) -->
+      <div class="scroll-steps">
+        <div class="scroll-step" data-target="0">
+          <div class="step-num">01</div>
+          <h3>전면 · e-ink 디스플레이</h3>
+          <p>
+            언제나 켜져 있는 1.5인치 e-ink 화면. 시계가 아니라 <strong>읽는 정보판</strong>입니다.
+            큰 시간 표시, 심박수, 배터리, 통신 상태를 한눈에. 직사광선 아래에서도 또렷합니다.
+          </p>
+          <ul class="step-bullets">
+            <li>1.5" 흑백 e-ink · 240×240</li>
+            <li>상시 표시 · 백라이트 LED 보조</li>
+            <li>고가독 한글 폰트 내장</li>
+          </ul>
+        </div>
+
+        <div class="scroll-step" data-target="1">
+          <div class="step-num">02</div>
+          <h3>측면 · 큰 SOS 버튼</h3>
+          <p>
+            손이 떨려도, 화면을 보지 않아도 누를 수 있는 <strong>물리적 빨간 버튼</strong>.
+            오작동을 막기 위해 5초간 길게 누름. 본체 두께는 12mm로 얇게, 그러나 누르는 감각은 분명하게.
+          </p>
+          <ul class="step-bullets">
+            <li>SOS 버튼 · 5초 길게 누름</li>
+            <li>전원·메뉴 버튼 분리</li>
+            <li>스피커·마이크 음성 통화</li>
+            <li>마그네틱 충전 단자</li>
+          </ul>
+        </div>
+
+        <div class="scroll-step" data-target="2">
+          <div class="step-num">03</div>
+          <h3>후면 · PPG 광혈류 센서</h3>
+          <p>
+            손목 안쪽의 핏줄을 비추는 녹색·적외선 LED 한 쌍과 광검출기 두 개.
+            <strong>심박이 사라지는 순간</strong>을 신호로 잡습니다. 항상 살갗과 닿아 있어야 작동하므로
+            착용 감지 센서가 함께 동작합니다.
+          </p>
+          <ul class="step-bullets">
+            <li>녹색 LED 1 + 적외선 LED 1</li>
+            <li>광검출기(PD) 2개</li>
+            <li>착용 감지 · 시계 벗으면 비활성화</li>
+            <li>3접점 마그네틱 충전</li>
+          </ul>
+        </div>
+
+        <div class="scroll-step" data-target="3">
+          <div class="step-num">04</div>
+          <h3>분해도 · 내부 구조</h3>
+          <p>
+            <strong>6개의 레이어</strong>로 쌓아 만든 단순한 구조. 부품 수가 적을수록 양산 단가가 내려가고
+            고장률이 줄어듭니다. 시니어 디바이스의 핵심은 <strong>고장이 나지 않는 것</strong>입니다.
+          </p>
+          <ul class="step-bullets">
+            <li>상부: 강화유리 베젤 + e-ink</li>
+            <li>중앙: 메인 PCB + 380mAh LiPo</li>
+            <li>하부: PPG 센서 + 후면 하우징</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!--  SECTION B: PCB ANATOMY                       -->
+  <!--  PCB를 큼지막하게 보여주고 각 칩에 핀 라벨        -->
+  <!-- ============================================== -->
+  <div class="section-title">
+    <span class="section-num">[02·1]</span>
+    <h2>PCB 구성 · 한 장의 보드</h2>
+  </div>
+  <div class="section-sub">
+    8개 핵심 부품이 단면 PCB에 배치됩니다. 양산 단가는 부품 수와 보드 면적에 비례합니다.
+  </div>
+
+  <div class="pcb-stage">
+    <svg viewBox="0 0 360 480" class="pcb-svg">
+      <!-- PCB outline -->
+      <rect x="40" y="40" width="280" height="400" rx="20" fill="#0d2b1a" stroke="#2d5a40" stroke-width="2"/>
+      <rect x="44" y="44" width="272" height="392" rx="17" fill="none" stroke="#1d4a30" stroke-width="0.5"/>
+
+      <!-- copper traces (decorative) -->
+      <g stroke="#c0a060" stroke-width="0.8" fill="none" opacity="0.5">
+        <path d="M 100 130 L 100 180 L 140 180 L 140 220"/>
+        <path d="M 220 130 L 220 200 L 180 200"/>
+        <path d="M 80 280 L 120 280 L 120 320"/>
+        <path d="M 280 280 L 240 280 L 240 320"/>
+        <path d="M 160 90 L 160 100"/>
+        <path d="M 100 380 L 100 350 L 140 350"/>
+        <path d="M 260 380 L 260 350 L 220 350"/>
+      </g>
+      <!-- via dots -->
+      <g fill="#c0a060">
+        <circle cx="100" cy="130" r="1.5"/>
+        <circle cx="220" cy="130" r="1.5"/>
+        <circle cx="160" cy="90" r="1.5"/>
+        <circle cx="140" cy="220" r="1.5"/>
+        <circle cx="180" cy="200" r="1.5"/>
+      </g>
+
+      <!-- Chip 1: MCU nRF52840 -->
+      <g class="pcb-chip" data-chip="mcu">
+        <rect x="130" y="120" width="60" height="60" fill="#0a0e15" stroke="#3a4658" stroke-width="1"/>
+        <rect x="133" y="123" width="54" height="54" fill="none" stroke="#1a2230" stroke-width="0.5"/>
+        <text x="160" y="148" font-family="JetBrains Mono" font-size="7" fill="#7dd3c0" text-anchor="middle">nRF</text>
+        <text x="160" y="158" font-family="JetBrains Mono" font-size="7" fill="#7dd3c0" text-anchor="middle">52840</text>
+        <text x="160" y="168" font-family="JetBrains Mono" font-size="5" fill="#5a6478" text-anchor="middle">MCU</text>
+        <!-- pin 1 indicator -->
+        <circle cx="135" cy="125" r="1.5" fill="#ff3b30"/>
+      </g>
+      <text x="125" y="155" font-family="JetBrains Mono" font-size="8" fill="#7dd3c0" text-anchor="end">①</text>
+      <line x1="128" y1="152" x2="118" y2="152" stroke="#7dd3c0" stroke-width="0.5" stroke-dasharray="2,2"/>
+
+      <!-- Chip 2: Cat-M1 Modem -->
+      <g class="pcb-chip" data-chip="modem">
+        <rect x="220" y="130" width="60" height="50" fill="#0a0e15" stroke="#3a4658" stroke-width="1"/>
+        <text x="250" y="152" font-family="JetBrains Mono" font-size="7" fill="#7dd3c0" text-anchor="middle">BG95</text>
+        <text x="250" y="163" font-family="JetBrains Mono" font-size="5" fill="#5a6478" text-anchor="middle">Cat-M1</text>
+        <circle cx="225" cy="135" r="1.5" fill="#ff3b30"/>
+      </g>
+      <text x="295" y="155" font-family="JetBrains Mono" font-size="8" fill="#7dd3c0">②</text>
+      <line x1="282" y1="152" x2="292" y2="152" stroke="#7dd3c0" stroke-width="0.5" stroke-dasharray="2,2"/>
+
+      <!-- Chip 3: PPG -->
+      <g class="pcb-chip" data-chip="ppg">
+        <rect x="70" y="220" width="40" height="40" fill="#0a0e15" stroke="#3a4658" stroke-width="1"/>
+        <text x="90" y="238" font-family="JetBrains Mono" font-size="6" fill="#7dd3c0" text-anchor="middle">MAX</text>
+        <text x="90" y="246" font-family="JetBrains Mono" font-size="6" fill="#7dd3c0" text-anchor="middle">86141</text>
+        <text x="90" y="254" font-family="JetBrains Mono" font-size="5" fill="#5a6478" text-anchor="middle">PPG</text>
+        <circle cx="74" cy="224" r="1.5" fill="#ff3b30"/>
+      </g>
+      <text x="60" y="244" font-family="JetBrains Mono" font-size="8" fill="#7dd3c0" text-anchor="end">③</text>
+      <line x1="65" y1="240" x2="55" y2="240" stroke="#7dd3c0" stroke-width="0.5" stroke-dasharray="2,2"/>
+
+      <!-- Chip 4: IMU -->
+      <g class="pcb-chip" data-chip="imu">
+        <rect x="130" y="220" width="40" height="40" fill="#0a0e15" stroke="#3a4658" stroke-width="1"/>
+        <text x="150" y="238" font-family="JetBrains Mono" font-size="6" fill="#7dd3c0" text-anchor="middle">LSM6</text>
+        <text x="150" y="246" font-family="JetBrains Mono" font-size="6" fill="#7dd3c0" text-anchor="middle">DSO</text>
+        <text x="150" y="254" font-family="JetBrains Mono" font-size="5" fill="#5a6478" text-anchor="middle">IMU</text>
+        <circle cx="134" cy="224" r="1.5" fill="#ff3b30"/>
+      </g>
+
+      <!-- Chip 5: GNSS (embedded in BG95, label separately for clarity) -->
+      <g class="pcb-chip" data-chip="gnss">
+        <rect x="190" y="220" width="40" height="40" fill="#0a0e15" stroke="#3a4658" stroke-width="1"/>
+        <text x="210" y="240" font-family="JetBrains Mono" font-size="6" fill="#7dd3c0" text-anchor="middle">GNSS</text>
+        <text x="210" y="250" font-family="JetBrains Mono" font-size="5" fill="#5a6478" text-anchor="middle">L1/L5</text>
+        <circle cx="194" cy="224" r="1.5" fill="#ff3b30"/>
+      </g>
+
+      <!-- Chip 6: PMIC -->
+      <g class="pcb-chip" data-chip="pmic">
+        <rect x="250" y="220" width="40" height="40" fill="#0a0e15" stroke="#3a4658" stroke-width="1"/>
+        <text x="270" y="240" font-family="JetBrains Mono" font-size="6" fill="#7dd3c0" text-anchor="middle">PMIC</text>
+        <text x="270" y="250" font-family="JetBrains Mono" font-size="5" fill="#5a6478" text-anchor="middle">전원관리</text>
+        <circle cx="254" cy="224" r="1.5" fill="#ff3b30"/>
+      </g>
+      <text x="305" y="244" font-family="JetBrains Mono" font-size="8" fill="#7dd3c0">④</text>
+      <line x1="292" y1="240" x2="302" y2="240" stroke="#7dd3c0" stroke-width="0.5" stroke-dasharray="2,2"/>
+
+      <!-- Antenna trace at bottom -->
+      <g class="pcb-chip" data-chip="ant">
+        <path d="M 80 380 L 80 350 L 280 350 L 280 380" fill="none" stroke="#c0a060" stroke-width="1.5"/>
+        <rect x="78" y="378" width="4" height="4" fill="#c0a060"/>
+        <rect x="278" y="378" width="4" height="4" fill="#c0a060"/>
+        <text x="180" y="345" font-family="JetBrains Mono" font-size="6" fill="#c0a060" text-anchor="middle">LTE ANTENNA TRACE</text>
+      </g>
+      <text x="180" y="395" font-family="JetBrains Mono" font-size="8" fill="#7dd3c0" text-anchor="middle">⑤ 안테나 패턴</text>
+
+      <!-- battery connector -->
+      <g>
+        <rect x="160" y="80" width="30" height="14" fill="#1a2230" stroke="#3a4658" stroke-width="1"/>
+        <rect x="164" y="83" width="3" height="8" fill="#c0a060"/>
+        <rect x="170" y="83" width="3" height="8" fill="#c0a060"/>
+        <rect x="176" y="83" width="3" height="8" fill="#c0a060"/>
+        <rect x="183" y="83" width="3" height="8" fill="#c0a060"/>
+      </g>
+      <text x="160" y="74" font-family="JetBrains Mono" font-size="7" fill="#7dd3c0" text-anchor="middle">배터리 커넥터</text>
+
+      <!-- Vibration motor -->
+      <g class="pcb-chip" data-chip="vibe">
+        <circle cx="90" cy="380" r="10" fill="#1a2230" stroke="#3a4658" stroke-width="1"/>
+        <circle cx="90" cy="380" r="5" fill="#0a0e15"/>
+        <text x="90" y="402" font-family="JetBrains Mono" font-size="6" fill="#7dd3c0" text-anchor="middle">진동</text>
+      </g>
+
+      <!-- Speaker -->
+      <g class="pcb-chip" data-chip="speaker">
+        <circle cx="270" cy="380" r="10" fill="#1a2230" stroke="#3a4658" stroke-width="1"/>
+        <circle cx="270" cy="380" r="6" fill="none" stroke="#3a4658" stroke-width="0.5"/>
+        <circle cx="270" cy="380" r="3" fill="none" stroke="#3a4658" stroke-width="0.5"/>
+        <text x="270" y="402" font-family="JetBrains Mono" font-size="6" fill="#7dd3c0" text-anchor="middle">스피커</text>
+      </g>
+
+      <!-- eSIM -->
+      <g class="pcb-chip" data-chip="esim">
+        <rect x="200" y="90" width="30" height="20" fill="#0a0e15" stroke="#3a4658" stroke-width="1"/>
+        <rect x="204" y="94" width="22" height="12" fill="#c0a060" opacity="0.6"/>
+        <text x="215" y="105" font-family="JetBrains Mono" font-size="5" fill="#0a0e15" text-anchor="middle">eSIM</text>
+      </g>
+
+      <!-- mount holes -->
+      <circle cx="55" cy="55" r="3" fill="#0b0f17" stroke="#3a4658"/>
+      <circle cx="305" cy="55" r="3" fill="#0b0f17" stroke="#3a4658"/>
+      <circle cx="55" cy="425" r="3" fill="#0b0f17" stroke="#3a4658"/>
+      <circle cx="305" cy="425" r="3" fill="#0b0f17" stroke="#3a4658"/>
+
+      <!-- PCB label -->
+      <text x="180" y="455" font-family="JetBrains Mono" font-size="8" fill="#5a6478" text-anchor="middle">SCW-A1 · MAIN PCB · 2-LAYER · 35×52mm</text>
+    </svg>
+  </div>
+
+  <!-- PCB chip legend -->
+  <div class="pcb-legend">
+    <div class="legend-item"><span class="ln">①</span><span>MCU · 펌웨어 실행, BLE 5.0, 알고리즘 추론</span></div>
+    <div class="legend-item"><span class="ln">②</span><span>모뎀 · LTE-M / NB-IoT / GNSS 단독 통신</span></div>
+    <div class="legend-item"><span class="ln">③</span><span>PPG · 심박·맥파 광신호 측정</span></div>
+    <div class="legend-item"><span class="ln">④</span><span>PMIC · 충전·전원 분배·배터리 보호</span></div>
+    <div class="legend-item"><span class="ln">⑤</span><span>안테나 · LTE 대역용 PCB 패턴 안테나</span></div>
+  </div>
+
+  <!-- ============================================== -->
+  <!--  SECTION C: BOM TABLE                          -->
+  <!-- ============================================== -->
+  <div class="section-title">
+    <span class="section-num">[02·2]</span>
+    <h2>BOM · 부품 목록과 단가</h2>
+  </div>
+  <div class="section-sub">
+    양산 5만 대 기준 단가. 환율·반도체 시황에 따라 ±15% 변동 가능.
+  </div>
+
+  <div class="specs">
+    <div class="spec-item">
+      <div class="spec-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+      </div>
+      <div class="spec-body">
+        <h4>MCU · Nordic nRF52840</h4>
+        <p>BLE 5.0 + Cortex-M4F. 저전력 RTOS(Zephyr) 구동. 펌웨어 OTA 지원.</p>
+      </div>
+      <div class="spec-cost">₩3,500</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h3l2-6 4 12 3-9 2 5h6"/></svg>
+      </div>
+      <div class="spec-body">
+        <h4>PPG 광혈류 센서 · MAX86141</h4>
+        <p>녹색·적외선 LED 2채널. 심박·맥파 소실 감지. 손목 PPG 의료급 SNR.</p>
+      </div>
+      <div class="spec-cost">₩4,200</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
+      </div>
+      <div class="spec-body">
+        <h4>6축 IMU · LSM6DSO</h4>
+        <p>가속도+자이로. 낙상·기립·무움직임 감지 알고리즘 입력.</p>
+      </div>
+      <div class="spec-cost">₩1,800</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+      </div>
+      <div class="spec-body">
+        <h4>Cat-M1 모뎀 · Quectel BG95</h4>
+        <p>LTE-M + NB-IoT + GNSS 통합. 폰 없이 단독 통신. eSIM 채택 시 운용 단순화.</p>
+      </div>
+      <div class="spec-cost">₩12,000</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="2"/></svg>
+      </div>
+      <div class="spec-body">
+        <h4>e-ink 1.5" 디스플레이</h4>
+        <p>저전력 흑백 e-ink. 상시 표시·고가독성. 백라이트 LED 보조.</p>
+      </div>
+      <div class="spec-cost">₩6,000</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M10 4V2h4v2"/></svg>
+      </div>
+      <div class="spec-body">
+        <h4>배터리 · 380mAh LiPo</h4>
+        <p>7일 이상 사용. 마그네틱 충전 도크. 시니어를 위한 잦은 충전 부담 제거.</p>
+      </div>
+      <div class="spec-cost">₩2,500</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/></svg>
+      </div>
+      <div class="spec-body">
+        <h4>스피커·마이크·진동</h4>
+        <p>119 음성 통화 가능. 알림 가청성 확보. 코인형 LRA 진동.</p>
+      </div>
+      <div class="spec-cost">₩3,000</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <div class="spec-body">
+        <h4>케이스·물리 SOS 버튼·기타</h4>
+        <p>실리콘 밴드, PC+ABS 하우징, IP67 방수, 1개의 큰 SOS 버튼.</p>
+      </div>
+      <div class="spec-cost">₩5,000</div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!--  SECTION D: ALGORITHM FLOW                     -->
+  <!-- ============================================== -->
+  <div class="section-title">
+    <span class="section-num">[02·3]</span>
+    <h2>심정지 감지 알고리즘 흐름</h2>
+  </div>
+  <div class="section-sub">
+    낙상감지 단독 의존을 넘어 PPG 맥파 소실 + 무움직임 + 무응답 3중 검증.
+  </div>
+
+  <div class="flow">
+    <div class="flow-step safe">
+      <div class="flow-num">0</div>
+      <div class="flow-body">
+        <h4>상시 모니터링</h4>
+        <p>1Hz PPG, 50Hz IMU. 평균 소비전류 0.8mA 이하 유지.</p>
+      </div>
+      <div class="flow-time">T+0</div>
+    </div>
+    <div class="flow-step alert">
+      <div class="flow-num">1</div>
+      <div class="flow-body">
+        <h4>이상 신호 감지</h4>
+        <p>PPG 맥파 소실 OR 강한 낙상 충격 + 30초간 무움직임.</p>
+      </div>
+      <div class="flow-time">T+30s</div>
+    </div>
+    <div class="flow-step alert">
+      <div class="flow-num">2</div>
+      <div class="flow-body">
+        <h4>1차 경보 — 사용자 확인 요청</h4>
+        <p>큰 진동·알람·"괜찮습니다" 버튼 표시. 손목 두드림. 60초 대기.</p>
+      </div>
+      <div class="flow-time">T+90s</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-body">
+        <h4>자동 신고 트리거</h4>
+        <p>무응답 확정. 119 자동 SMS(다매체 신고 시스템) + 가족 SMS 동시 전송. GPS 좌표·심박·낙상 메타데이터 첨부.</p>
+      </div>
+      <div class="flow-time">T+95s</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <div class="flow-body">
+        <h4>음성 통화 라인 개방</h4>
+        <p>119 상담사가 워치 스피커로 직접 응답 가능. 의식 회복 시 통화 응대.</p>
+      </div>
+      <div class="flow-time">T+100s</div>
+    </div>
+  </div>
+
+  <!-- SIMULATOR -->
+  <div class="sim">
+    <div class="sim-title">
+      <span style="color:var(--red)">▶</span> 실시간 시뮬레이션
+    </div>
+    <div class="sim-stage" id="simStage">
+      <div class="sim-line" style="animation-delay:0s">[14:32:01] 정상 모니터링 중 · HR 72bpm · 움직임 +</div>
+      <div class="sim-line" style="animation-delay:.3s">[14:32:14] PPG 신호 안정 · 배터리 78%</div>
+      <div class="sim-line" style="animation-delay:.6s">[14:32:28] IMU: 정상 보행 패턴 감지</div>
+    </div>
+    <button class="sim-btn" onclick="runSim()">심정지 시나리오 실행 →</button>
+  </div>
+
+  <div class="card">
+    <h3>오신고를 최소화하는 설계</h3>
+    <p>
+      소비자용 워치가 심정지 자동 신고를 못 하는 가장 큰 이유는 <strong>오신고 부담</strong>입니다.
+      SilverCare는 ① 손목 착용 감지로 시계를 벗은 경우 자동 비활성화, ② PPG·IMU·시간의 3중 검증, ③ 1차 경보 후 사용자가 1번 버튼만 누르면 즉시 해제, ④ 119 신고 전 가족에게 우선 알림 옵션을 둬 거짓 신고를 최소화합니다.
+    </p>
+  </div>
+</section>
+
+
+
+<!-- ============================ -->
+<!-- TAB 3: BUSINESS MODEL       -->
+<!-- ============================ -->
+<section class="section" id="business">
+  <div class="hero">
+    <div class="hero-tag">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold)"></span>
+      BUSINESS MODEL · B2G + B2C
+    </div>
+    <h1>모두가<br><em>감당할 수 있는</em><br><span class="accent">생명선.</span></h1>
+    <p class="lead">
+      정부 보조금이 닿는 구조와 시장가에 자립하는 구조 — 두 가지 트랙을 병행합니다.
+    </p>
+  </div>
+
+  <div class="section-title">
+    <span class="section-num">[03·1]</span>
+    <h2>가격 모델</h2>
+  </div>
+
+  <div class="bm-grid">
+    <div class="bm-card" data-tag="B2G">
+      <h4>정부 보급 트랙</h4>
+      <div class="price">₩0<span style="font-size:12px;color:var(--ink-dim);font-weight:400">/사용자</span></div>
+      <p>지자체·보건복지부 보조금 100% 적용. 디바이스는 무상 보급, 통신·서비스는 응급안전안심서비스 예산 편성.</p>
+      <ul>
+        <li>독거노인·기초생활수급자 대상</li>
+        <li>대당 매출: 5만 원 (지자체 단가)</li>
+        <li>월 통신·서비스: 4천 원</li>
+      </ul>
+    </div>
+    <div class="bm-card" data-tag="B2C">
+      <h4>일반 소비자 트랙</h4>
+      <div class="price">₩59,000</div>
+      <p>가족 보호자가 부모님께 선물하는 모델. 자녀 앱 연동으로 위치·심박·낙상 알림 확인.</p>
+      <ul>
+        <li>월 구독 6,900원</li>
+        <li>가족 4명까지 알림 공유</li>
+        <li>분실·파손 보험 옵션</li>
+      </ul>
+    </div>
+    <div class="bm-card" data-tag="B2B">
+      <h4>요양시설·병원</h4>
+      <div class="price">₩45,000<span style="font-size:12px;color:var(--ink-dim);font-weight:400">/대량</span></div>
+      <p>요양원·실버타운 입소자 대상. 중앙 모니터링 대시보드 + RTLS 위치측위 연동.</p>
+      <ul>
+        <li>대량 단가 + 대시보드 SaaS</li>
+        <li>월 시설당 50만 원~</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <span class="section-num">[03·2]</span>
+    <h2>단위 경제 (B2G 기준 1대)</h2>
+  </div>
+
+  <div class="econ">
+    <div class="econ-title">— 1대당 수익 구조</div>
+    <div class="econ-row">
+      <div class="label">BOM 원가 (양산)</div>
+      <div class="val">−38,000</div>
+    </div>
+    <div class="econ-row">
+      <div class="label">조립·검사·물류</div>
+      <div class="val">−4,000</div>
+    </div>
+    <div class="econ-row">
+      <div class="label">패키지·인증·예비</div>
+      <div class="val">−3,000</div>
+    </div>
+    <div class="econ-row">
+      <div class="label">B2G 납품 단가</div>
+      <div class="val" style="color:var(--teal)">+50,000</div>
+    </div>
+    <div class="econ-row total">
+      <div class="label">디바이스 마진</div>
+      <div class="val">₩5,000 (10%)</div>
+    </div>
+  </div>
+
+  <div class="econ">
+    <div class="econ-title">— 사용자 1명당 연간 (Recurring)</div>
+    <div class="econ-row">
+      <div class="label">월 서비스 ARPU</div>
+      <div class="val">₩4,000</div>
+    </div>
+    <div class="econ-row">
+      <div class="label">통신 원가 (Cat-M1)</div>
+      <div class="val">−1,200</div>
+    </div>
+    <div class="econ-row">
+      <div class="label">서버·운영 분담</div>
+      <div class="val">−800</div>
+    </div>
+    <div class="econ-row total">
+      <div class="label">월 마진 / 연간</div>
+      <div class="val">₩2,000 / ₩24,000</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>3년 손익 시뮬레이션</h3>
+    <p>
+      Y1: 5만 대 (지자체 시범), Y2: 20만 대, Y3: 50만 대 누적 보급 가정.<br>
+      Y3 매출 약 <strong>337억 원</strong>, 영업이익률 약 <strong>14%</strong> 도달 예상.
+      독거노인 220만 가구 도달 시 연간 ARR 약 <strong>528억 원</strong> 규모.
+    </p>
+  </div>
+
+  <div class="section-title">
+    <span class="section-num">[03·3]</span>
+    <h2>왜 우리가 이길 수 있는가</h2>
+  </div>
+
+  <div class="card">
+    <h3>1. 가격 압도</h3>
+    <p>Apple·Galaxy 워치는 범용 기능을 위해 비싼 칩셋·디스플레이를 채택합니다. 우리는 응급 감지에 필요한 최소 기능만 남겨 <strong>1/10 가격</strong>으로 만듭니다.</p>
+  </div>
+  <div class="card">
+    <h3>2. 폼팩터 압도</h3>
+    <p>큰 SOS 버튼, e-ink, 7일 배터리. 시니어가 매일 충전을 잊지 않게 설계된 폼팩터는 일반 워치 시장에 없습니다.</p>
+  </div>
+  <div class="card">
+    <h3>3. 채널 압도</h3>
+    <p>지자체·보건소·노인복지관·요양시설 채널은 일반 가전 유통과 분리됩니다. 이 영역에 진입한 사업자는 아직 손목 디바이스가 없습니다.</p>
+  </div>
+</section>
+
+
+<!-- ============================ -->
+<!-- TAB 4: PROPOSAL DRAFT       -->
+<!-- ============================ -->
+<section class="section" id="proposal">
+  <div class="hero">
+    <div class="hero-tag">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--warn)"></span>
+      DRAFT v0.1 · 정부기관 제출용 가안
+    </div>
+    <h1>제안서<br><em>(가안)</em></h1>
+    <p class="lead">
+      포맷이 정해지면 그에 맞춰 재편집해야 합니다. 아래는 제안 내용의 골격입니다.
+    </p>
+  </div>
+
+  <button class="copy-btn" onclick="copyProposal()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+    제안서 전문 복사
+  </button>
+
+  <div class="proposal-meta">
+    <div class="proposal-meta-row"><div class="k">사업명</div><div class="v">초고령사회 대응 응급감지·통보 웨어러블 보급 시범사업</div></div>
+    <div class="proposal-meta-row"><div class="k">제출처</div><div class="v">보건복지부 / 광역지자체 / 국민건강보험공단</div></div>
+    <div class="proposal-meta-row"><div class="k">사업기간</div><div class="v">2026년 ~ 2028년 (3개년)</div></div>
+    <div class="proposal-meta-row"><div class="k">총사업비</div><div class="v">시범 100억 / 본사업 1,000억 (안)</div></div>
+    <div class="proposal-meta-row"><div class="k">제안일</div><div class="v">2026년 5월</div></div>
+  </div>
+
+  <div id="proposalDoc">
+
+  <div class="doc-section">
+    <h3><span class="n">Ⅰ.</span>사업의 필요성</h3>
+
+    <h4>1. 초고령사회 진입과 사회적 비용</h4>
+    <p>대한민국은 2025년 65세 이상 인구가 전체의 20.3%인 1,051만 명을 돌파하며 처음으로 초고령사회에 진입하였다. 2036년 30%, 2050년 40%를 초과할 것으로 전망되어 응급의료·돌봄 시스템에 대한 수요가 급격히 증가하고 있다.</p>
+
+    <h4>2. 무목격 심정지의 사회적 손실</h4>
+    <p>병원 밖 심정지(OHCA)는 대부분 가정에서 발생하며, 발생 후 4분이 경과하면 뇌 손상이 시작된다. 독거노인 가구 증가로 인해 무목격 심정지가 지속적으로 증가하고 있고, 이는 생존율 저하와 의료비 부담 증대로 직결된다.</p>
+
+    <h4>3. 기존 정책 사업의 보완 필요</h4>
+    <p><strong>응급안전안심서비스</strong>는 가정 내 게이트웨이·화재감지기 중심으로 운영되어, 외출 중·이동 중 응급상황 감지에는 한계가 있다. 손목 착용형 생체신호 기반 디바이스는 이 공백을 보완할 수 있는 검증된 폼팩터이다.</p>
+
+    <h4>4. 시장 솔루션의 한계</h4>
+    <p>Apple Watch·Galaxy Watch 등 상용 스마트워치는 ① 30만~60만 원 이상의 높은 가격, ② 매일 충전 부담, ③ 스마트폰 연동 필수, ④ 심정지 자동 감지 기능 부재 등의 이유로 저소득 독거노인 보급에는 부적합하다.</p>
+  </div>
+
+  <div class="doc-section">
+    <h3><span class="n">Ⅱ.</span>사업 개요</h3>
+
+    <h4>1. 사업 목적</h4>
+    <ul>
+      <li>독거노인의 가정 내·외부에서 발생하는 심정지·낙상 등 응급상황을 자동 감지하여 119 및 가족·보호자에게 즉시 통보</li>
+      <li>골든타임 4분 내 응급의료 개시율 향상</li>
+      <li>저소득·취약계층 노인의 디지털 돌봄 격차 해소</li>
+    </ul>
+
+    <h4>2. 사업 내용</h4>
+    <ul>
+      <li><strong>전용 웨어러블 디바이스 개발·보급</strong>: PPG 광혈류, 6축 IMU, Cat-M1 통신 모듈을 탑재한 응급감지 전용 워치</li>
+      <li><strong>응급통보 플랫폼 구축</strong>: 119 다매체 신고 시스템 및 가족 알림 SMS 게이트웨이</li>
+      <li><strong>지역 돌봄 인프라 연계</strong>: 사회복지사·생활지원사 모바일 앱과의 알림 연동</li>
+      <li><strong>사용자 교육·지원</strong>: 행정복지센터 단위 대면 교육 및 1:1 설치 지원</li>
+    </ul>
+
+    <h4>3. 추진 체계</h4>
+    <ul>
+      <li>주관: 보건복지부 / 지자체</li>
+      <li>수행: 제안 기업 (디바이스 및 플랫폼) + 한국노인인력개발원·지역 노인복지관 (현장 운영)</li>
+      <li>협력: 소방청 119 종합상황실, 국민건강보험공단</li>
+    </ul>
+  </div>
+
+  <div class="doc-section">
+    <h3><span class="n">Ⅲ.</span>핵심 기술 사양</h3>
+
+    <h4>1. 디바이스</h4>
+    <ul>
+      <li>크기: 손목 직경 40~50mm 기준 설계, 무게 35g 이하</li>
+      <li>디스플레이: 1.5인치 e-ink (상시 표시, 고가독성)</li>
+      <li>센서: PPG (MAX86141급), 6축 IMU, 착용 감지</li>
+      <li>통신: LTE-M (Cat-M1) + NB-IoT, GNSS 내장, eSIM</li>
+      <li>배터리: 7일 이상 연속 사용, 마그네틱 충전</li>
+      <li>방수: IP67 이상, 생활 방수</li>
+      <li>물리 SOS 버튼: 5초 길게 누름 시 즉시 발신</li>
+    </ul>
+
+    <h4>2. 응급 감지 알고리즘</h4>
+    <ul>
+      <li>3중 검증: PPG 맥파 소실 + IMU 무움직임 + 사용자 무응답</li>
+      <li>1차 경보 90초, 2차 자동 신고 95초 이내</li>
+      <li>오신고 최소화: 착용 감지·해제 버튼·계층적 알림 (가족 우선)</li>
+    </ul>
+
+    <h4>3. 응급통보 흐름</h4>
+    <ul>
+      <li>119 다매체 신고 (SMS/앱) → 음성 라인 자동 개방</li>
+      <li>등록 가족 최대 4명에게 동시 SMS 전송 (GPS 좌표 포함)</li>
+      <li>지자체 응급안전안심서비스 관제센터 연계</li>
+    </ul>
+  </div>
+
+  <div class="doc-section">
+    <h3><span class="n">Ⅳ.</span>추진 일정 (3개년)</h3>
+    <ul>
+      <li><strong>1차년도 (Y1)</strong>: 디바이스 양산 설계 완료, 의료기기 적합성 인증, 시범사업 5만 대 보급 (3개 지자체)</li>
+      <li><strong>2차년도 (Y2)</strong>: 시범사업 결과 보고, 알고리즘 개선, 20만 대 추가 보급, 요양시설 연계</li>
+      <li><strong>3차년도 (Y3)</strong>: 전국 단위 본사업 전환, 누적 50만 대, 운영 데이터 기반 정책 보고서</li>
+    </ul>
+  </div>
+
+  <div class="doc-section">
+    <h3><span class="n">Ⅴ.</span>소요 예산 (시범사업 1차년도)</h3>
+    <ul>
+      <li>디바이스 양산·보급: 50,000대 × 50,000원 = <strong>25억 원</strong></li>
+      <li>통신·서비스 운영비: 50,000명 × 4,000원/월 × 12개월 = <strong>24억 원</strong></li>
+      <li>응급통보 플랫폼 구축: <strong>20억 원</strong></li>
+      <li>현장 교육·지원·홍보: <strong>10억 원</strong></li>
+      <li>운영·관리·평가: <strong>10억 원</strong></li>
+      <li>기타 예비비 (10%): <strong>11억 원</strong></li>
+      <li>──────────</li>
+      <li><strong>합계: 100억 원</strong></li>
+    </ul>
+  </div>
+
+  <div class="doc-section">
+    <h3><span class="n">Ⅵ.</span>기대 효과</h3>
+
+    <h4>1. 정량적 효과</h4>
+    <ul>
+      <li>무목격 심정지 발생 시 평균 신고 시간 <strong>60분 → 2분 이내</strong> 단축</li>
+      <li>독거노인 응급의료 개시 시간 단축으로 생존율 향상</li>
+      <li>중증 응급환자 발생 시 의료비·요양비 절감 (1인당 추정 절감액 ○○만 원)</li>
+    </ul>
+
+    <h4>2. 정성적 효과</h4>
+    <ul>
+      <li>독거노인 및 가족의 심리적 안전감 제고</li>
+      <li>지역 돌봄 인프라와 디지털 헬스케어의 융합 모델 구축</li>
+      <li>국내 시니어 헬스케어 산업의 글로벌 진출 기반 마련</li>
+    </ul>
+  </div>
+
+  <div class="doc-section">
+    <h3><span class="n">Ⅶ.</span>제안 기업 역량</h3>
+    <p><em>(작성 시 기업 연혁·연구개발 인력·관련 인증·유사 사업 수행 실적 등을 기재)</em></p>
+    <ul>
+      <li>주요 인력: 의료기기 임베디드 개발자 ○명, 알고리즘 연구원 ○명</li>
+      <li>보유 인증: 의료기기 GMP, 정보보호관리체계(ISMS) 등 <em>(취득 예정 포함)</em></li>
+      <li>유사 수행 실적: <em>(IoT 디바이스·헬스케어 플랫폼 등)</em></li>
+    </ul>
+  </div>
+
+  <div class="doc-section">
+    <h3><span class="n">Ⅷ.</span>위험 요인 및 대응</h3>
+    <ul>
+      <li><strong>오신고 위험</strong>: 3중 검증 알고리즘 + 사용자 해제 UI + 1차 경보 90초 → 119 도달 전 가족 우선 알림으로 119 부하 최소화</li>
+      <li><strong>개인정보·민감정보 보호</strong>: 생체신호 익명 처리, 위치 정보는 응급상황 발생 시에만 외부 전송, ISMS 인증 운영</li>
+      <li><strong>사용자 거부감</strong>: 행정복지센터·생활지원사 통한 대면 교육, 1:1 설치 지원, 큰 글자·음성 안내 UI</li>
+      <li><strong>디바이스 분실·파손</strong>: 1회 교체 무상 제공, 분실 시 원격 비활성화</li>
+    </ul>
+  </div>
+
+  </div>
+</section>
+
+
+<!-- ============================ -->
+<!-- TAB 5: REFERENCES           -->
+<!-- ============================ -->
+<section class="section" id="refs">
+  <div class="hero">
+    <div class="hero-tag">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--teal)"></span>
+      RESEARCH & REFERENCES
+    </div>
+    <h1>참고<br><em>자료.</em></h1>
+    <p class="lead">
+      개발·연구·정책 제안 시 활용 가능한 외부 사이트들을 분야별로 정리했습니다.
+    </p>
+  </div>
+
+  <div class="ref-group">
+    <div class="ref-group-title">[A] 통계 · 정책 데이터</div>
+
+    <a class="ref-item" href="https://kosis.kr/visual/populationKorea/PopulationDashBoardMain.do" target="_blank" rel="noopener">
+      <h4>KOSIS · 인구로 보는 대한민국</h4>
+      <div class="ref-url">https://kosis.kr/visual/populationKorea/PopulationDashBoardMain.do</div>
+      <div class="ref-desc">국가데이터처의 인구 대시보드. 연령별 인구·고령인구 비중·노년부양비 등 실시간 통계.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.kostat.go.kr/board.es?mid=a10301010000&bid=10820&tag=&act=view&list_no=438832" target="_blank" rel="noopener">
+      <h4>2025 고령자 통계 (국가데이터처)</h4>
+      <div class="ref-url">https://www.kostat.go.kr/board.es?mid=a10301010000&bid=10820</div>
+      <div class="ref-desc">매년 노인의 날에 맞춰 발표되는 공식 통계. 인구·건강·소득·사회참여·생활환경 전반.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.mohw.go.kr" target="_blank" rel="noopener">
+      <h4>보건복지부</h4>
+      <div class="ref-url">https://www.mohw.go.kr</div>
+      <div class="ref-desc">노인복지·응급의료·국가건강검진 정책 자료. 사업 공모·예산 공지 확인.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.129.go.kr" target="_blank" rel="noopener">
+      <h4>응급안전안심서비스 (보건복지부 129)</h4>
+      <div class="ref-url">https://www.129.go.kr</div>
+      <div class="ref-desc">독거노인·중증장애인 대상 응급안전 통합 서비스. 기존 사업과의 연계 설계에 필수 참고.</div>
+    </a>
+  </div>
+
+  <div class="ref-group">
+    <div class="ref-group-title">[B] 의료 · 응급 · 임상</div>
+
+    <a class="ref-item" href="https://www.nfa.go.kr" target="_blank" rel="noopener">
+      <h4>소방청</h4>
+      <div class="ref-url">https://www.nfa.go.kr</div>
+      <div class="ref-desc">119 다매체 신고 시스템·구급 출동 통계. 자동 신고 시스템 연동 시 협의 채널.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.119.go.kr" target="_blank" rel="noopener">
+      <h4>119 다매체 신고 서비스</h4>
+      <div class="ref-url">https://www.119.go.kr</div>
+      <div class="ref-desc">SMS·앱·영상 신고 시스템. 디바이스에서 자동 신고 트리거 시 활용 인터페이스.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.kacpr.org" target="_blank" rel="noopener">
+      <h4>대한심폐소생협회 (KACPR)</h4>
+      <div class="ref-url">https://www.kacpr.org</div>
+      <div class="ref-desc">심정지 가이드라인·BLS 표준. 알고리즘 임상 근거 확보용.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.cdc.go.kr/contents.es?mid=a20308040000" target="_blank" rel="noopener">
+      <h4>질병관리청 · 급성심장정지조사 통계</h4>
+      <div class="ref-url">https://www.cdc.go.kr/contents.es?mid=a20308040000</div>
+      <div class="ref-desc">국내 OHCA(병원 밖 심정지) 통계. 발생률·생존율·연령 분포 데이터 출처.</div>
+    </a>
+
+    <a class="ref-item" href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" rel="noopener">
+      <h4>PubMed (NCBI)</h4>
+      <div class="ref-url">https://pubmed.ncbi.nlm.nih.gov</div>
+      <div class="ref-desc">PPG-based cardiac arrest detection, wearable ECG 등 의학 논문 검색.</div>
+    </a>
+  </div>
+
+  <div class="ref-group">
+    <div class="ref-group-title">[C] 하드웨어 · 부품</div>
+
+    <a class="ref-item" href="https://www.nordicsemi.com/Products/nRF52840" target="_blank" rel="noopener">
+      <h4>Nordic Semiconductor · nRF52840</h4>
+      <div class="ref-url">https://www.nordicsemi.com/Products/nRF52840</div>
+      <div class="ref-desc">저전력 BLE+Cortex-M4F 통합 MCU. 웨어러블 표준 선택지.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.analog.com/en/products/max86141.html" target="_blank" rel="noopener">
+      <h4>Analog Devices · MAX86141 PPG 센서</h4>
+      <div class="ref-url">https://www.analog.com/en/products/max86141.html</div>
+      <div class="ref-desc">고감도 광혈류 센서. 손목 PPG의 의료급 신호 품질.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.st.com/en/mems-and-sensors/lsm6dso.html" target="_blank" rel="noopener">
+      <h4>STMicro · LSM6DSO 6축 IMU</h4>
+      <div class="ref-url">https://www.st.com/en/mems-and-sensors/lsm6dso.html</div>
+      <div class="ref-desc">초저전력 가속도+자이로. 낙상 감지 알고리즘 표준 입력.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.quectel.com/product/lpwa-bg95-series-cat-m1-nb-iot-egprs-module" target="_blank" rel="noopener">
+      <h4>Quectel · BG95 Cat-M1 / NB-IoT 모뎀</h4>
+      <div class="ref-url">https://www.quectel.com/product/lpwa-bg95-series-cat-m1-nb-iot-egprs-module</div>
+      <div class="ref-desc">LTE-M+NB-IoT+GNSS 통합. 폰 없이 단독 통신용 표준 모듈.</div>
+    </a>
+  </div>
+
+  <div class="ref-group">
+    <div class="ref-group-title">[D] 소프트웨어 · 펌웨어</div>
+
+    <a class="ref-item" href="https://www.zephyrproject.org" target="_blank" rel="noopener">
+      <h4>Zephyr Project · RTOS</h4>
+      <div class="ref-url">https://www.zephyrproject.org</div>
+      <div class="ref-desc">웨어러블·IoT 표준 RTOS. 안드로이드 웨어 대비 칩 자원·라이선스 절감.</div>
+    </a>
+
+    <a class="ref-item" href="https://docs.zephyrproject.org" target="_blank" rel="noopener">
+      <h4>Zephyr 공식 문서</h4>
+      <div class="ref-url">https://docs.zephyrproject.org</div>
+      <div class="ref-desc">디바이스 트리·드라이버·BLE 스택 개발 가이드.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.tinyml.org" target="_blank" rel="noopener">
+      <h4>TinyML Foundation</h4>
+      <div class="ref-url">https://www.tinyml.org</div>
+      <div class="ref-desc">온디바이스 ML 표준. 심정지·낙상 감지 모델 경량화 자료.</div>
+    </a>
+
+    <a class="ref-item" href="https://physionet.org" target="_blank" rel="noopener">
+      <h4>PhysioNet · 의료 신호 오픈 데이터</h4>
+      <div class="ref-url">https://physionet.org</div>
+      <div class="ref-desc">MIT 운영. PPG·ECG·낙상 공개 데이터셋. 알고리즘 학습·검증용.</div>
+    </a>
+  </div>
+
+  <div class="ref-group">
+    <div class="ref-group-title">[E] 인증 · 규제</div>
+
+    <a class="ref-item" href="https://www.mfds.go.kr" target="_blank" rel="noopener">
+      <h4>식품의약품안전처 · 의료기기</h4>
+      <div class="ref-url">https://www.mfds.go.kr</div>
+      <div class="ref-desc">의료기기 분류·인증 절차. 응급감지 디바이스가 의료기기 범주에 해당하는지 사전 검토 필요.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.rra.go.kr" target="_blank" rel="noopener">
+      <h4>국립전파연구원 (RRA)</h4>
+      <div class="ref-url">https://www.rra.go.kr</div>
+      <div class="ref-desc">전파 적합성 인증(KC). LTE-M·BLE 무선기기 필수.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.privacy.go.kr" target="_blank" rel="noopener">
+      <h4>개인정보보호위원회</h4>
+      <div class="ref-url">https://www.privacy.go.kr</div>
+      <div class="ref-desc">생체정보·위치정보 처리 규정. 응급 예외 적용 가이드라인 확인.</div>
+    </a>
+
+    <a class="ref-item" href="https://isms.kisa.or.kr" target="_blank" rel="noopener">
+      <h4>KISA · ISMS-P</h4>
+      <div class="ref-url">https://isms.kisa.or.kr</div>
+      <div class="ref-desc">정보보호 및 개인정보보호 관리체계 인증. B2G 사업 입찰 시 일반적으로 요구.</div>
+    </a>
+  </div>
+
+  <div class="ref-group">
+    <div class="ref-group-title">[F] 통신 · IoT 망</div>
+
+    <a class="ref-item" href="https://www.kt.com/biz/iot" target="_blank" rel="noopener">
+      <h4>KT IoT · LTE-M 요금제</h4>
+      <div class="ref-url">https://www.kt.com/biz/iot</div>
+      <div class="ref-desc">국내 Cat-M1 회선 사업자. 디바이스용 데이터 요금제 협상 채널.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.sktelecom.com/iot" target="_blank" rel="noopener">
+      <h4>SKT · 사물인터넷</h4>
+      <div class="ref-url">https://www.sktelecom.com/iot</div>
+      <div class="ref-desc">LTE-M / NB-IoT 망 운용 사업자. 시니어 헬스케어 IoT 사례 보유.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.lguplus.com/biz/iot" target="_blank" rel="noopener">
+      <h4>LG U+ IoT</h4>
+      <div class="ref-url">https://www.lguplus.com/biz/iot</div>
+      <div class="ref-desc">국내 IoT 회선 3사 중 하나. 다회선 단가 협상 시 비교군.</div>
+    </a>
+  </div>
+
+  <div class="ref-group">
+    <div class="ref-group-title">[G] 글로벌 사례 · 벤치마크</div>
+
+    <a class="ref-item" href="https://support.apple.com/guide/watch/manage-fall-detection-apd34c409704/watchos" target="_blank" rel="noopener">
+      <h4>Apple Watch · Fall Detection 가이드</h4>
+      <div class="ref-url">https://support.apple.com/guide/watch/manage-fall-detection-apd34c409704/watchos</div>
+      <div class="ref-desc">낙상 감지 + 무응답 자동 신고 흐름. 알고리즘 트리거링 벤치마크.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.lifeline.com" target="_blank" rel="noopener">
+      <h4>Philips Lifeline (US)</h4>
+      <div class="ref-url">https://www.lifeline.com</div>
+      <div class="ref-desc">미국 시니어 응급호출 디바이스 시장 1위. 펜던트·워치형 모니터링 서비스 모델.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.medicalalert.com" target="_blank" rel="noopener">
+      <h4>Medical Alert (US)</h4>
+      <div class="ref-url">https://www.medicalalert.com</div>
+      <div class="ref-desc">월 구독 기반 응급 호출 서비스. 가격·서비스 구조 벤치마크.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.bayugen.com" target="_blank" rel="noopener">
+      <h4>Bay Alarm Medical (US)</h4>
+      <div class="ref-url">https://www.bayugen.com</div>
+      <div class="ref-desc">시니어 의료경보 산업의 가격·기능 비교 참고.</div>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <span class="brand-name">SilverCare Watch</span>
+  사업 가안 v0.3 · 작성: 2026.05 · 정해진 포맷 적용 시 재편집 필요
+  <br><br>
+  <span style="opacity:.5">※ 본 자료의 모든 수치는 공개 자료 기반 추정이며, 실제 사업 수행 시 정밀 검증이 필요합니다.</span>
+</footer>
+
+<script>
+  // ===== TAB SWITCH =====
+  const tabs = document.querySelectorAll('.tab');
+  const sections = document.querySelectorAll('.section');
+  tabs.forEach(t => {
+    t.addEventListener('click', () => {
+      tabs.forEach(x => x.classList.remove('active'));
+      sections.forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      document.getElementById(t.dataset.tab).classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+
+  // ===== SIMULATOR =====
+  function runSim(){
+    const stage = document.getElementById('simStage');
+    stage.innerHTML = '';
+    const lines = [
+      {t:0, c:'', text:'[14:32:01] 정상 모니터링 중 · HR 72bpm'},
+      {t:300, c:'warn', text:'[14:32:08] ⚠ PPG 신호 약화 감지 (HR ↓)'},
+      {t:700, c:'warn', text:'[14:32:14] ⚠ 강한 낙상 충격 감지 · 3.2G'},
+      {t:1100, c:'alert', text:'[14:32:15] ✕ IMU: 무움직임 상태 진입'},
+      {t:1600, c:'alert', text:'[14:32:45] ✕ 30초 무움직임 확정 — 1차 경보'},
+      {t:2200, c:'alert', text:'[14:32:46] 💢 진동·알람·"괜찮으십니까?" UI'},
+      {t:3000, c:'alert', text:'[14:33:45] ✕ 60초 무응답 확정'},
+      {t:3500, c:'alert', text:'[14:33:46] 📡 119 자동 SMS 신고 발송'},
+      {t:3900, c:'alert', text:'[14:33:46] 📡 가족 4인 SMS 동시 발송 (GPS)'},
+      {t:4400, c:'ok', text:'[14:33:50] ✓ 음성 회선 개방 · 119 응답 대기'},
+      {t:5000, c:'ok', text:'[14:33:52] ✓ 출동 알림 수신 · ETA 7분'},
+    ];
+    lines.forEach((l,i)=>{
+      setTimeout(()=>{
+        const d = document.createElement('div');
+        d.className = 'sim-line ' + (l.c||'');
+        d.style.animationDelay = '0s';
+        d.style.opacity = 1;
+        d.textContent = l.text;
+        stage.appendChild(d);
+        stage.scrollTop = stage.scrollHeight;
+      }, l.t);
+    });
+  }
+
+
+  // ===== SCROLL-DRIVEN WATCH ROTATOR =====
+  (function(){
+    const steps = document.querySelectorAll('.scroll-step');
+    const views = document.querySelectorAll('.watch-view');
+    const dots = document.querySelectorAll('.view-dots .dot');
+    if(!steps.length || !views.length) return;
+
+    function setActive(i){
+      views.forEach((v,j)=>v.classList.toggle('active', j===i));
+      dots.forEach((d,j)=>d.classList.toggle('active', j===i));
+    }
+
+    const io = new IntersectionObserver((entries)=>{
+      // pick the entry with highest intersection ratio
+      let best = null;
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          if(!best || e.intersectionRatio > best.intersectionRatio) best = e;
+        }
+      });
+      if(best){
+        const i = parseInt(best.target.dataset.target, 10);
+        if(!isNaN(i)) setActive(i);
+      }
+    }, {
+      // trigger when step is in middle band of viewport
+      rootMargin: '-40% 0px -40% 0px',
+      threshold: [0, 0.25, 0.5, 0.75, 1]
+    });
+
+    steps.forEach(s=>io.observe(s));
+  })();
+
+  // ===== COPY PROPOSAL =====
+  function copyProposal(){
+    const doc = document.getElementById('proposalDoc');
+    const text = doc.innerText;
+    navigator.clipboard.writeText(text).then(()=>{
+      const btn = document.querySelector('.copy-btn');
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✓ 복사되었습니다';
+      btn.style.background = 'var(--teal)';
+      btn.style.color = '#0b0f17';
+      setTimeout(()=>{
+        btn.innerHTML = orig;
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
