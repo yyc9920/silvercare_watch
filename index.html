@@ -765,9 +765,9 @@
   <div class="card">
     <h3>정책적 정합성</h3>
     <p>
-      보건복지부의 <strong>독거노인·중증장애인 응급안전안심서비스</strong>가 이미 전국 <span class="stat teal">30만</span> 가구 이상에 게이트웨이·화재감지기 등을 설치하고 있으나, 손목 착용형 생체신호 기반 솔루션은 부재합니다. SilverCare는 기존 서비스의 빈 공백 — <strong>외출 중 응급·심정지 감지</strong> — 을 보완하는 위치에 있습니다.
+      보건복지부의 <strong>독거노인·중증장애인 응급안전안심서비스</strong>는 2023년 약 <span class="stat teal">288억 원</span> 예산(집행률 99%)으로 한국사회보장정보원이 운영하는 안정적 정책 사업이나, <strong>댁내 게이트웨이·화재감지기 중심이라 집 밖에 나가면 작동하지 않습니다</strong>. 손목 착용형 생체신호 기반 솔루션은 부재 — SilverCare는 이 빈 공백, <strong>외출·이동 중 응급·심정지 감지</strong>를 보완하는 위치에 있습니다.
     </p>
-    <div class="src">보건복지부 응급안전안심서비스(129) 보급 현황</div>
+    <div class="src">예산·운영 구조: 마이버짓(열린재정) 응급안전안심서비스 사업추진현황 2023 · 한국사회보장정보원</div>
   </div>
 </section>
 
@@ -1435,7 +1435,7 @@
       <div class="flow-num">3</div>
       <div class="flow-body">
         <h4>자동 신고 트리거</h4>
-        <p>무응답 확정. 119 자동 SMS(다매체 신고 시스템) + 가족 SMS 동시 전송. GPS 좌표·심박·낙상 메타데이터 첨부.</p>
+        <p>무응답 확정. <strong>지자체 관제센터를 경유</strong>해 119 다매체 신고 시스템으로 자동 통보 + 가족 SMS 동시 전송. GPS 좌표·심박·낙상 메타데이터 첨부.</p>
       </div>
       <div class="flow-time">T+95s</div>
     </div>
@@ -1448,6 +1448,7 @@
       <div class="flow-time">T+100s</div>
     </div>
   </div>
+  <div class="src">소방청 119에 일반 사업자용 공개 자동 신고 API는 없으나, 의정부시가 IoT 센서 → 지자체 CCTV통합관제센터(스마트 도시안전망) → 119 다매체 신고를 전국 최초로 자동 연계해 운영 중(경기북부탑뉴스 2023.7). SilverCare는 이 검증된 우회 경로를 차용합니다.</div>
 
   <!-- SIMULATOR -->
   <div class="sim">
@@ -1468,6 +1469,45 @@
       소비자용 워치가 심정지 자동 신고를 못 하는 가장 큰 이유는 <strong>오신고 부담</strong>입니다.
       SilverCare는 ① 손목 착용 감지로 시계를 벗은 경우 자동 비활성화, ② PPG·IMU·시간의 3중 검증, ③ 1차 경보 후 사용자가 1번 버튼만 누르면 즉시 해제, ④ 119 신고 전 가족에게 우선 알림 옵션을 둬 거짓 신고를 최소화합니다.
     </p>
+    <p>
+      실제로 Apple Watch는 2023년 9월 낙상감지 업데이트 후 오신고가 급증해, 일부 스키 리조트 지역의 911 콜센터가 주당 수십 건의 자동 오신고에 시달린 바 있습니다(NYT "Why Apple Watch Keeps Calling 911" 보도). 반면 손목 PPG는 국내 응급실 검증에서 <span class="stat teal">특이도 100%</span>(오신고 거의 없음)를 보여, 3중 검증과 결합 시 이 문제를 구조적으로 회피할 수 있습니다.
+    </p>
+    <div class="src">Apple 오신고: Medical Alert Buyers Guide(2026.1, NYT 인용) · 손목 PPG 특이도: 국내 3차병원 응급실 OHCA 50명 연구(PubMed 2019)</div>
+  </div>
+
+  <!-- ============================================== -->
+  <!--  SECTION E: ACADEMIC VALIDATION                -->
+  <!-- ============================================== -->
+  <div class="section-title">
+    <span class="section-num">[02·4]</span>
+    <h2>기술 타당성 · 학술 검증</h2>
+  </div>
+  <div class="section-sub">
+    "손목 PPG로 심정지를 자동 감지할 수 있는가"는 2024~2025년 임상 연구로 근거가 확립되었습니다.
+  </div>
+
+  <div class="card">
+    <h3>상용 스마트워치 실증 · Nature 2025</h3>
+    <p>Google이 Pixel Watch의 손목 PPG + 모션 다중 모드 모델로 <strong>맥박 소실(loss of pulse) 사건을 의미 있는 민감도·특이도로 분류</strong>함을 입증한 첫 논문. 상시 착용 워치에서 심정지 자동 감지가 실증되었습니다.</p>
+    <div class="src">Nature (2025.2) "Automated loss of pulse detection on a consumer smartwatch"</div>
+  </div>
+
+  <div class="card">
+    <h3>환자 외부 검증 · Circulation DETECT-1b 2025</h3>
+    <p>유도 심실세동/심실빈맥 환자 대상 외부 검증에서 심정지 감지 <span class="stat">양성예측도 86%</span>, 환자별 첫 사건 <span class="stat">민감도 92%</span>, <strong>심실세동(VF) 100% 민감도</strong>. 손목 PPG가 제세동 가능 심정지를 신뢰성 있게 감지함을 환자에서 처음 입증했습니다.</p>
+    <div class="src">Circulation: Arrhythmia and Electrophysiology (2025) DETECT-1b 환자 외부 검증</div>
+  </div>
+
+  <div class="card">
+    <h3>착용 위치 한계 · Scientific Reports 2024</h3>
+    <p>손목 PPG는 손가락 PPG(macro F1 0.964)보다 낮은 <span class="stat">손목 macro F1 0.837</span>로, 정확도 한계는 인정해야 하나 임상적으로 의미 있는 수준입니다. False negative는 여전히 존재 — 과장 마케팅은 금물입니다.</p>
+    <div class="src">Scientific Reports (2024.10) PPG 기반 심정지 감지 분류 성능</div>
+  </div>
+
+  <div class="card">
+    <h3>의료기기 인허가 선례 · 휴이노 메모워치</h3>
+    <p>국내 손목시계형 심전도 기기 '메모워치'(+AI 분석 SW)가 2019년 3월 식약처 <strong>2등급 의료기기(홀터심전계)</strong> 허가를 받았고, 2020년 5월 국내 최초 웨어러블 의료기기로 건강보험 급여대상에 등재되었습니다. 2025년 5월 디지털의료제품법 시행으로 AI 적용 디지털의료기기의 허가 기준·해당 여부 흐름도가 정비되었습니다. <strong>당사 제품의 구체 등급은 식약처 사전상담을 통해 확정해야 합니다.</strong></p>
+    <div class="src">한국경제·히트뉴스(2019.3) · 메트로서울(2020.5) · Lexology(2025.5) 디지털의료기기 가이드라인 제·개정</div>
   </div>
 </section>
 
@@ -1573,6 +1613,7 @@
       <div class="val">₩2,000 / ₩24,000</div>
     </div>
   </div>
+  <div class="src">통신원가 1,200원은 B2B 대량 회선 추정치. SKT LTE-M 소매 요금제는 월 3,300~5,500원, 자가개통 단말은 1,000~5,000원 수준(T world·SKT IoT 공시) — 5만 회선 이상 대량 계약 시 인하 협상을 전제로 한 추정입니다.</div>
 
   <div class="card">
     <h3>3년 손익 시뮬레이션</h3>
@@ -1640,7 +1681,7 @@
     <p>대한민국은 2025년 65세 이상 인구가 전체의 20.3%인 1,051만 명을 돌파하며 처음으로 초고령사회에 진입하였다. 2036년 30%, 2050년 40%를 초과할 것으로 전망되어 응급의료·돌봄 시스템에 대한 수요가 급격히 증가하고 있다.</p>
 
     <h4>2. 무목격 심정지의 사회적 손실</h4>
-    <p>병원 밖 심정지(OHCA)는 대부분 가정에서 발생하며, 발생 후 4분이 경과하면 뇌 손상이 시작된다. 독거노인 가구 증가로 인해 무목격 심정지가 지속적으로 증가하고 있고, 이는 생존율 저하와 의료비 부담 증대로 직결된다.</p>
+    <p>병원 밖 심정지(OHCA)는 대부분 가정에서 발생하며, 발생 후 4분이 경과하면 뇌 손상이 시작된다. 국내 OHCA 발생률은 인구 10만 명당 약 84명(한양대학교병원, 2023), 119로 의료기관에 이송·등록되는 건수는 연간 약 3만 건(질병관리청 OHCA 등록자료 분석, 2024)에 이른다. 한 분석에서 응급실 퇴실 시 생존율은 19.3%였으며, 병원 전 단계 심폐소생술(CPR) 시행과 응급실 도착 시간이 생존의 핵심 요인으로 확인되었다(대한보건연구, 2020). 독거노인 가구 증가로 무목격 심정지가 지속 증가하고 있으며, 발견·신고 시간 단축은 생존율 개선과 직접 인과 관계가 있다.</p>
 
     <h4>3. 기존 정책 사업의 보완 필요</h4>
     <p><strong>응급안전안심서비스</strong>는 가정 내 게이트웨이·화재감지기 중심으로 운영되어, 외출 중·이동 중 응급상황 감지에는 한계가 있다. 손목 착용형 생체신호 기반 디바이스는 이 공백을 보완할 수 있는 검증된 폼팩터이다.</p>
@@ -1734,7 +1775,8 @@
     <ul>
       <li>무목격 심정지 발생 시 평균 신고 시간 <strong>60분 → 2분 이내</strong> 단축</li>
       <li>독거노인 응급의료 개시 시간 단축으로 생존율 향상</li>
-      <li>중증 응급환자 발생 시 의료비·요양비 절감 (1인당 추정 절감액 ○○만 원)</li>
+      <li>국내 OHCA 연간 약 3만 건, 응급실 퇴실 생존율 약 19.3% — 병원 전 CPR·응급실 도착 시간이 생존의 핵심 요인으로 입증됨 (대한보건연구 2020)</li>
+      <li>발견·신고 시간 단축을 통한 생존율 개선 (1인당 의료비·요양비 절감액은 보건사회연구·건강보험공단 자료로 별도 정밀 추정 필요)</li>
     </ul>
 
     <h4>2. 정성적 효과</h4>
@@ -1977,6 +2019,58 @@
       <h4>Bay Alarm Medical (US)</h4>
       <div class="ref-url">https://www.bayugen.com</div>
       <div class="ref-desc">시니어 의료경보 산업의 가격·기능 비교 참고.</div>
+    </a>
+  </div>
+
+  <div class="ref-group">
+    <div class="ref-group-title">[H] 핵심 학술 · 검증 자료</div>
+
+    <a class="ref-item" href="https://www.nature.com/articles/s41586-025-08810-9" target="_blank" rel="noopener">
+      <h4>Nature (2025) · Automated loss of pulse detection on a consumer smartwatch</h4>
+      <div class="ref-url">https://www.nature.com/articles/s41586-025-08810-9</div>
+      <div class="ref-desc">상용 스마트워치(Pixel Watch) 손목 PPG+모션으로 심정지 자동 감지 실증한 첫 논문.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.ahajournals.org/doi/full/10.1161/CIRCEP.125.014708" target="_blank" rel="noopener">
+      <h4>Circulation: Arrhythmia and Electrophysiology (2025) · DETECT-1b</h4>
+      <div class="ref-url">https://www.ahajournals.org/doi/full/10.1161/CIRCEP.125.014708</div>
+      <div class="ref-desc">손목 PPG 심정지 감지 환자 외부 검증. PPV 86%, 심실세동 민감도 100%.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.nature.com/articles/s41598-024-74117-w" target="_blank" rel="noopener">
+      <h4>Scientific Reports (2024) · PPG 기반 심정지 감지</h4>
+      <div class="ref-url">https://www.nature.com/articles/s41598-024-74117-w</div>
+      <div class="ref-desc">착용 위치별 분류 성능. 손목 macro F1 0.837 (정확도 한계 인정 근거).</div>
+    </a>
+
+    <a class="ref-item" href="https://pubmed.ncbi.nlm.nih.gov/30782884/" target="_blank" rel="noopener">
+      <h4>PubMed (2019) · 스마트워치 PPG 맥박 확인 연구</h4>
+      <div class="ref-url">https://pubmed.ncbi.nlm.nih.gov/30782884/</div>
+      <div class="ref-desc">국내 3차병원 응급실 OHCA 50명. 손목 민감도 78.6%, 특이도 100%.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.gbtopnews.net/news/articleView.html?idxno=94449" target="_blank" rel="noopener">
+      <h4>경기북부탑뉴스 (2023) · 의정부시 IoT→119 다매체 자동 신고</h4>
+      <div class="ref-url">https://www.gbtopnews.net/news/articleView.html?idxno=94449</div>
+      <div class="ref-desc">IoT 센서→지자체 관제센터→119 다매체 자동 연계 전국 최초 사례.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.mybudget.go.kr/budgetBsnsInfo/executionResultView?in_year=2023&cndcy_no=T2300018" target="_blank" rel="noopener">
+      <h4>마이버짓(열린재정) · 응급안전안심서비스 사업추진현황 2023</h4>
+      <div class="ref-url">https://www.mybudget.go.kr/budgetBsnsInfo/executionResultView</div>
+      <div class="ref-desc">예산 약 288억 원, 집행률 99%. 댁내 장비 중심 운영 구조·한계.</div>
+    </a>
+
+    <a class="ref-item" href="https://www.hankyung.com/article/201903252376f" target="_blank" rel="noopener">
+      <h4>한국경제 (2019) · 휴이노 메모워치 식약처 허가</h4>
+      <div class="ref-url">https://www.hankyung.com/article/201903252376f</div>
+      <div class="ref-desc">손목시계형 심전도 2등급 의료기기 허가 선례 (2020.5 건보 급여 등재).</div>
+    </a>
+
+    <a class="ref-item" href="https://www.medicalalertbuyersguide.org/smartwatch-medical-alert-system/apple-watch-medical-alert-review/" target="_blank" rel="noopener">
+      <h4>Medical Alert Buyers Guide (2026) · Apple Watch 오신고 사례</h4>
+      <div class="ref-url">medicalalertbuyersguide.org/.../apple-watch-medical-alert-review</div>
+      <div class="ref-desc">낙상감지 오신고로 911 콜센터 폭주(NYT 인용). 오신고 최소화 설계 근거.</div>
     </a>
   </div>
 </section>
