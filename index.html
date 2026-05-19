@@ -608,6 +608,199 @@
       background-color:var(--bg);  /* opaque: text passes behind, not over */
     }
   }
+
+  /* ============================================ */
+  /* TAB 06: 팀 모집 (funding-report, scoped)      */
+  /* ============================================ */
+  #funding{
+    --bg:#0a1628; --bg-elevated:#112139; --bg-card:#15263f; --bg-card-hover:#1a2d4a;
+    --ink:#e8eef7; --ink-soft:#b4c2d6; --ink-mute:#6b7d99;
+    --line:#1f3556; --line-strong:#2d4673;
+    --signal:#e63946; --signal-bright:#ff5e6e; --signal-glow:rgba(230,57,70,.18);
+    --teal:#4dd0c1; --teal-glow:rgba(77,208,193,.2);
+    --gold:#d4a84a; --green:#5cb85c; --amber:#f0a830;
+    --radius-sm:4px; --radius:10px; --radius-lg:16px;
+    color:var(--ink);font-size:15px;line-height:1.65;letter-spacing:-.005em;
+  }
+  #funding .container{max-width:720px;margin:0 auto;padding:0 22px}
+
+  #funding .hero{padding:64px 22px 56px;border-bottom:1px solid var(--line);background:radial-gradient(ellipse 90% 60% at 50% 0%, rgba(230,57,70,.12), transparent 60%),radial-gradient(ellipse 70% 50% at 100% 100%, rgba(77,208,193,.05), transparent 60%),var(--bg);position:relative;overflow:hidden}
+  #funding .hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;mask-image:radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 80%)}
+  #funding .hero-inner{max-width:720px;margin:0 auto;position:relative}
+  #funding .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.12em;padding:7px 12px;border:1px solid var(--line-strong);border-radius:999px;background:rgba(21,38,63,.6);backdrop-filter:blur(8px)}
+  #funding .eyebrow .dot{width:6px;height:6px;background:var(--signal);border-radius:50%;box-shadow:0 0 10px var(--signal);animation:frPulse 2.4s ease-in-out infinite}
+  @keyframes frPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.85)}}
+  #funding h1.title{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(36px,9vw,54px);line-height:1.05;letter-spacing:-.03em;margin-top:22px;color:var(--ink)}
+  #funding h1.title em{font-style:italic;font-weight:400;color:var(--signal);position:relative}
+  #funding h1.title em::after{content:'';position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--signal);transform:scaleX(0);transform-origin:left;animation:frUnderline 1.2s .6s cubic-bezier(.22,1,.36,1) forwards}
+  @keyframes frUnderline{to{transform:scaleX(1)}}
+  #funding .lede{margin-top:22px;font-size:17px;line-height:1.55;color:var(--ink-soft);max-width:580px;font-weight:300}
+  #funding .lede strong{color:var(--ink);font-weight:500}
+  #funding .hero-stats{margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  #funding .hero-stat{padding:0 12px;border-right:1px solid var(--line)}
+  #funding .hero-stat:last-child{border-right:none}
+  #funding .hero-stat:first-child{padding-left:0}
+  #funding .hero-stat-num{font-family:'Fraunces',serif;font-size:24px;font-weight:500;color:var(--ink);letter-spacing:-.02em;line-height:1}
+  #funding .hero-stat-num em{font-size:14px;color:var(--ink-mute);font-style:normal;font-family:'JetBrains Mono',monospace;margin-left:2px}
+  #funding .hero-stat-cap{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.08em;margin-top:6px;line-height:1.4}
+  #funding .meta{margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink-mute);letter-spacing:.04em}
+
+  #funding nav.toc{position:sticky;top:116px;z-index:40;background:rgba(10,22,40,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:12px 0;margin:0 -18px}
+  #funding .toc-scroll{display:flex;gap:4px;overflow-x:auto;padding:0 22px;scrollbar-width:none;max-width:720px;margin:0 auto}
+  #funding .toc-scroll::-webkit-scrollbar{display:none}
+  #funding .toc-scroll a{flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-mute);text-decoration:none;padding:7px 13px;border-radius:999px;border:1px solid transparent;transition:all .15s;white-space:nowrap}
+  #funding .toc-scroll a:hover{color:var(--ink-soft)}
+  #funding .toc-scroll a.active{color:var(--signal);background:rgba(230,57,70,.08);border-color:rgba(230,57,70,.2)}
+
+  #funding section{padding:60px 0 28px}
+  #funding .section-tag{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--signal);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  #funding .section-tag::before{content:'';width:24px;height:1px;background:var(--signal)}
+  #funding h2{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(28px,6.5vw,36px);line-height:1.2;letter-spacing:-.022em;margin-bottom:20px}
+  #funding h2 em{font-style:italic;color:var(--signal);font-weight:400}
+  #funding h2 .accent{color:var(--teal);font-style:italic;font-weight:400}
+  #funding h3{font-family:'Fraunces',serif;font-weight:500;font-size:22px;line-height:1.3;margin-bottom:14px;color:var(--ink);letter-spacing:-.01em}
+  #funding p{margin-bottom:14px;color:var(--ink-soft)}
+  #funding p.strong-p{color:var(--ink);font-size:15.5px}
+  #funding strong{color:var(--ink);font-weight:600}
+  #funding em{font-style:italic}
+
+  #funding .hook{background:linear-gradient(135deg,rgba(230,57,70,.06),rgba(77,208,193,.03));border:1px solid var(--line-strong);border-radius:var(--radius-lg);padding:26px 22px;margin-bottom:28px;position:relative;overflow:hidden}
+  #funding .hook::after{content:'';position:absolute;top:-40%;right:-20%;width:240px;height:240px;background:radial-gradient(circle,var(--signal-glow),transparent 70%);pointer-events:none}
+  #funding .hook-headline{font-family:'Fraunces',serif;font-size:clamp(22px,5vw,26px);line-height:1.35;color:var(--ink);font-weight:500;margin-bottom:16px;letter-spacing:-.018em;position:relative}
+  #funding .hook-headline em{font-style:italic;color:var(--signal)}
+  #funding .hook-body{font-size:15px;color:var(--ink-soft);line-height:1.65;position:relative;z-index:1}
+
+  #funding .why-grid{display:grid;gap:14px;margin:24px 0}
+  #funding .why-card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;transition:all .25s cubic-bezier(.22,1,.36,1);position:relative;overflow:hidden}
+  #funding .why-card:hover{border-color:var(--line-strong);background:var(--bg-card-hover);transform:translateY(-2px)}
+  #funding .why-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--signal);transition:height .3s}
+  #funding .why-card:hover::before{height:100%}
+  #funding .why-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--teal);margin-bottom:10px;letter-spacing:.08em;text-transform:uppercase}
+  #funding .why-title{font-family:'Fraunces',serif;font-size:19px;font-weight:500;color:var(--ink);margin-bottom:10px;line-height:1.35;letter-spacing:-.012em}
+  #funding .why-body{font-size:14px;color:var(--ink-soft);line-height:1.6}
+  #funding .why-body strong{color:var(--ink)}
+
+  #funding .honest-grid{display:grid;gap:12px;margin:20px 0}
+  #funding .honest-card{background:var(--bg-card);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:var(--radius);padding:18px 20px}
+  #funding .honest-q{font-family:'Fraunces',serif;font-size:17px;font-weight:500;color:var(--ink);margin-bottom:8px;line-height:1.4;font-style:italic}
+  #funding .honest-q::before{content:'"';color:var(--amber);font-size:24px;line-height:0;margin-right:4px}
+  #funding .honest-q::after{content:'"';color:var(--amber);font-size:24px;line-height:0;margin-left:4px}
+  #funding .honest-a{font-size:13.5px;color:var(--ink-soft);line-height:1.6}
+  #funding .honest-a strong{color:var(--ink)}
+
+  #funding .cite{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);text-decoration:none;border-bottom:1px dotted var(--ink-mute);padding-bottom:1px;margin-left:4px;vertical-align:super;line-height:1;transition:color .15s}
+  #funding .cite:hover{color:var(--signal);border-color:var(--signal)}
+
+  #funding .prob-vis{background:linear-gradient(180deg,var(--bg-card) 0%,var(--bg-elevated) 100%);border:1px solid var(--line);border-radius:var(--radius);padding:24px 20px;margin:28px 0}
+  #funding .prob-title{font-family:'Fraunces',serif;font-size:18px;margin-bottom:6px;color:var(--ink);font-weight:500}
+  #funding .prob-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-mute);margin-bottom:20px;letter-spacing:.04em}
+  #funding .prob-bar{margin-bottom:18px}
+  #funding .prob-bar:last-child{margin-bottom:0}
+  #funding .prob-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:7px;align-items:baseline;gap:12px}
+  #funding .prob-label-text{color:var(--ink-soft);flex:1}
+  #funding .prob-label-text.now{color:var(--ink);font-weight:500}
+  #funding .prob-label-text.now::after{content:'NOW';font-family:'JetBrains Mono',monospace;font-size:9px;background:var(--signal);color:white;padding:2px 6px;border-radius:3px;margin-left:8px;letter-spacing:.05em;vertical-align:middle}
+  #funding .prob-label-val{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--ink);font-weight:600;flex-shrink:0}
+  #funding .prob-track{height:10px;background:var(--bg);border-radius:3px;overflow:hidden;border:1px solid var(--line);position:relative}
+  #funding .prob-fill{height:100%;background:linear-gradient(90deg,var(--signal),var(--signal-bright));border-radius:2px;width:0;transition:width 1.4s cubic-bezier(.22,1,.36,1);box-shadow:0 0 16px var(--signal-glow)}
+  #funding .prob-fill.good{background:linear-gradient(90deg,var(--teal),#6ae3d4);box-shadow:0 0 16px var(--teal-glow)}
+  #funding .prob-fill.mid{background:linear-gradient(90deg,var(--amber),#ffc15f);box-shadow:0 0 16px rgba(240,168,48,.2)}
+  #funding .prob-arrow{text-align:center;margin-top:24px;padding-top:18px;border-top:1px dashed var(--line);font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-soft);letter-spacing:.04em}
+  #funding .prob-arrow strong{color:var(--teal);font-weight:600}
+
+  #funding .path-tabs{display:flex;gap:6px;margin:24px 0 16px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+  #funding .path-tabs::-webkit-scrollbar{display:none}
+  #funding .path-tab{background:transparent;border:none;color:var(--ink-mute);font-family:'IBM Plex Sans KR',sans-serif;font-size:13px;font-weight:500;padding:11px 16px;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;margin-bottom:-1px}
+  #funding .path-tab:hover{color:var(--ink-soft)}
+  #funding .path-tab.active{color:var(--signal);border-bottom-color:var(--signal)}
+  #funding .path-content{display:none;background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:24px 22px;animation:frFadeIn .3s ease}
+  #funding .path-content.active{display:block}
+  @keyframes frFadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+  #funding .path-pre{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-mute);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+  #funding .path-pre.recommended{color:var(--teal)}
+  #funding .path-title{font-family:'Fraunces',serif;font-size:20px;color:var(--ink);margin-bottom:16px;line-height:1.3;font-weight:500;letter-spacing:-.012em}
+  #funding .path-stat{display:flex;gap:18px;flex-wrap:wrap;padding:16px 0;margin:16px 0;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line)}
+  #funding .path-stat>div{flex:1 1 auto;min-width:110px}
+  #funding .path-stat-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+  #funding .path-stat-val{font-family:'Fraunces',serif;font-size:19px;color:var(--ink);font-weight:500}
+  #funding .path-stat-val.signal{color:var(--signal)}
+  #funding .path-stat-val.teal{color:var(--teal)}
+  #funding .path-body{font-size:14px;color:var(--ink-soft);line-height:1.65}
+  #funding .path-body ul{padding-left:20px;margin:12px 0}
+  #funding .path-body li{margin-bottom:8px;color:var(--ink-soft)}
+  #funding .path-body li strong{color:var(--ink)}
+
+  #funding .actions-intro{background:linear-gradient(135deg,rgba(77,208,193,.06),transparent);border-left:2px solid var(--teal);padding:16px 20px;margin:20px 0 28px;font-size:14.5px;color:var(--ink-soft);line-height:1.65;border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+  #funding .actions-intro strong{color:var(--ink)}
+  #funding details.action{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;transition:all .2s}
+  #funding details.action[open]{border-color:var(--line-strong);background:var(--bg-card-hover)}
+  #funding details.action summary{list-style:none;cursor:pointer;padding:18px 20px;display:flex;align-items:flex-start;gap:16px;transition:background .15s}
+  #funding details.action summary::-webkit-details-marker{display:none}
+  #funding details.action summary:hover{background:var(--bg-card-hover)}
+  #funding .action-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-mute);flex-shrink:0;padding-top:4px;min-width:24px;letter-spacing:.04em}
+  #funding .action-head{flex:1;min-width:0}
+  #funding .action-title{font-family:'Fraunces',serif;font-size:17px;font-weight:500;color:var(--ink);line-height:1.35;margin-bottom:6px;letter-spacing:-.008em}
+  #funding .action-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  #funding .pill{font-family:'JetBrains Mono',monospace;font-size:10px;padding:3px 8px;border-radius:3px;background:var(--bg);border:1px solid var(--line);color:var(--ink-mute);letter-spacing:.04em}
+  #funding .pill.cost{color:var(--teal);border-color:rgba(77,208,193,.25)}
+  #funding .pill.time{color:var(--gold);border-color:rgba(212,168,74,.25)}
+  #funding .chev{font-family:'JetBrains Mono',monospace;color:var(--ink-mute);font-size:14px;flex-shrink:0;transition:transform .25s;padding-top:3px}
+  #funding details[open] .chev{transform:rotate(90deg);color:var(--signal)}
+  #funding .action-body{padding:4px 20px 22px 60px;font-size:14px;color:var(--ink-soft);line-height:1.7}
+  #funding .action-body p{margin-bottom:10px}
+  #funding .action-body ol,#funding .action-body ul{padding-left:20px;margin:8px 0 12px}
+  #funding .action-body li{margin-bottom:6px}
+  #funding .action-body .step-detail{background:var(--bg);border-left:2px solid var(--teal);padding:12px 16px;margin:14px 0;font-size:13.5px;border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+  #funding .action-body .step-detail strong{color:var(--ink)}
+  #funding .action-body code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--bg);padding:2px 7px;border-radius:3px;color:var(--teal);border:1px solid var(--line)}
+  #funding .action-body a{color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(77,208,193,.3);transition:border-color .15s}
+  #funding .action-body a:hover{border-color:var(--teal)}
+
+  #funding .timeline{margin:28px 0;position:relative;padding-left:28px}
+  #funding .timeline::before{content:'';position:absolute;left:7px;top:10px;bottom:10px;width:1px;background:linear-gradient(180deg,var(--signal),var(--teal) 50%,var(--line))}
+  #funding .tl-item{position:relative;margin-bottom:24px}
+  #funding .tl-item::before{content:'';position:absolute;left:-28px;top:8px;width:15px;height:15px;border-radius:50%;background:var(--bg);border:2px solid var(--line-strong);z-index:1}
+  #funding .tl-item.now::before{border-color:var(--signal);background:var(--signal);box-shadow:0 0 0 5px rgba(230,57,70,.15)}
+  #funding .tl-item.milestone::before{border-color:var(--teal);background:var(--teal)}
+  #funding .tl-when{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+  #funding .tl-item.now .tl-when{color:var(--signal);font-weight:600}
+  #funding .tl-item.milestone .tl-when{color:var(--teal)}
+  #funding .tl-what{font-family:'Fraunces',serif;font-size:16.5px;color:var(--ink);margin-bottom:5px;font-weight:500;line-height:1.3}
+  #funding .tl-detail{font-size:13.5px;color:var(--ink-soft);line-height:1.55}
+
+  #funding .calling{margin:48px 0 0;padding:32px 24px;background:linear-gradient(135deg,var(--bg-elevated),var(--bg-card));border:1px solid var(--line-strong);border-radius:var(--radius-lg);position:relative;overflow:hidden}
+  #funding .calling::after{content:'';position:absolute;top:-50%;left:-10%;width:300px;height:300px;background:radial-gradient(circle,rgba(230,57,70,.1),transparent 70%);pointer-events:none}
+  #funding .calling-tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--signal);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;position:relative}
+  #funding .calling-headline{font-family:'Fraunces',serif;font-size:clamp(22px,5vw,26px);color:var(--ink);line-height:1.35;margin-bottom:16px;font-weight:500;letter-spacing:-.018em;position:relative}
+  #funding .calling-headline em{font-style:italic;color:var(--signal)}
+  #funding .calling-body{font-size:14.5px;color:var(--ink-soft);line-height:1.7;position:relative}
+  #funding .calling-body strong{color:var(--ink)}
+  #funding .calling-list{margin:20px 0;position:relative}
+  #funding .calling-list li{list-style:none;padding:12px 0;border-bottom:1px dashed var(--line);display:flex;align-items:flex-start;gap:14px;color:var(--ink-soft);font-size:14px}
+  #funding .calling-list li:last-child{border-bottom:none}
+  #funding .calling-list .role{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;flex-shrink:0;min-width:80px;padding-top:3px}
+  #funding .calling-list .desc{flex:1}
+  #funding .calling-list .desc strong{color:var(--ink)}
+
+  #funding .fr-footer{margin-top:60px;padding:36px 0 60px;border-top:1px solid var(--line)}
+  #funding .refs h3{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;font-weight:500}
+  #funding .ref-list{font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.8;color:var(--ink-mute);counter-reset:ref}
+  #funding .ref-list li{list-style:none;margin-bottom:10px;padding-left:28px;position:relative;word-break:break-all}
+  #funding .ref-list li::before{content:'[' counter(ref) ']';counter-increment:ref;position:absolute;left:0;color:var(--signal)}
+  #funding .ref-list a{color:var(--ink-soft);text-decoration:none;border-bottom:1px dotted var(--line-strong)}
+  #funding .ref-list a:hover{color:var(--teal);border-color:var(--teal)}
+  #funding .ref-list .ref-src{color:var(--ink);font-family:'IBM Plex Sans KR',sans-serif;font-size:12px;display:block;margin-bottom:2px}
+  #funding .colophon{margin-top:32px;padding-top:20px;border-top:1px dashed var(--line);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);letter-spacing:.05em;line-height:1.7}
+
+  @media (min-width:768px){
+    #funding{font-size:16px}
+    #funding .container{padding:0 32px}
+    #funding .hero{padding:88px 32px 64px}
+    #funding .toc-scroll{padding:0 32px}
+    #funding section{padding:76px 0 32px}
+    #funding .action-body{padding-left:76px}
+    #funding h1.title{letter-spacing:-.035em}
+  }
 </style>
 </head>
 <body>
@@ -634,6 +827,7 @@
     <button class="tab" data-tab="business"><span class="num">03</span>사업 모델</button>
     <button class="tab" data-tab="proposal"><span class="num">04</span>제안서</button>
     <button class="tab" data-tab="refs"><span class="num">05</span>레퍼런스</button>
+    <button class="tab" data-tab="funding"><span class="num">06</span>팀 모집</button>
   </nav>
 </header>
 
@@ -2075,6 +2269,637 @@
   </div>
 </section>
 
+<!-- ============================ -->
+<!-- TAB 6: 팀 모집 (funding)      -->
+<!-- ============================ -->
+<section class="section" id="funding">
+
+  <div class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow"><span class="dot"></span>SilverCare · 함께 만들 사람을 찾습니다</span>
+      <h1 class="title">초고령사회 응급망의 <em>빈자리</em>.<br/>그걸 만들 팀을 모읍니다.</h1>
+      <p class="lede"><strong>독거 노인 1,051만 명.</strong> 매년 OHCA 3만 건. 골든타임 4분.<br/>그런데 응급안전안심서비스는 집 안에만 있다. 우리는 그 빈자리에 들어간다.</p>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">100<em>%</em></div>
+          <div class="hero-stat-cap">VF 감지 민감도<br/>(Circulation 2025)<a href="#ref-1" class="cite">[1]</a></div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">288<em>억</em></div>
+          <div class="hero-stat-cap">응급안전안심<br/>23년 예산<a href="#ref-2" class="cite">[2]</a></div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">8<em>개월</em></div>
+          <div class="hero-stat-cap">예창패 신청<br/>까지 남은 시간</div>
+        </div>
+      </div>
+
+      <div class="meta">v1.0 · 2026.05.19 · 잠재 공동창업자·자문위원용</div>
+    </div>
+  </div>
+
+  <nav class="toc">
+    <div class="toc-scroll">
+      <a href="#why-now" class="active">왜 지금</a>
+      <a href="#honest">정직한 자기 인식</a>
+      <a href="#math">선발의 수학</a>
+      <a href="#path">3가지 길</a>
+      <a href="#actions">7가지 액션</a>
+      <a href="#timeline">8개월 로드맵</a>
+      <a href="#calling">함께할 사람</a>
+    </div>
+  </nav>
+
+  <!-- 1. WHY NOW -->
+  <section id="why-now">
+    <div class="container">
+      <div class="section-tag">01 · 왜 지금인가</div>
+      <h2>시장이 <em>지금</em> 열리고 있다.</h2>
+
+      <div class="hook">
+        <div class="hook-headline">이게 가능한 사업이라는 건 <em>이미 증명</em>되었다.<br/>남은 건 누가 먼저 만드는가의 문제.</div>
+        <div class="hook-body">2025년에 두 가지가 정해졌다. Nature·Circulation에서 손목 PPG로 심정지를 잡는 임상이 검증됐고,<a href="#ref-1" class="cite">[1]</a> 식약처는 디지털의료기기 가이드라인 6종을 제·개정해 규제 진입로를 깔았다.<a href="#ref-3" class="cite">[3]</a> 의정부시는 IoT→119 자동 신고를 이미 운영 중이다.<a href="#ref-4" class="cite">[4]</a> "되는가?"의 시대는 끝났고, "누가 먼저 만드는가"가 시작됐다.</div>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-num">Trigger 01</div>
+          <div class="why-title">초고령사회 진입 + 응급망의 명확한 공백</div>
+          <div class="why-body">2025년 한국은 공식 초고령사회. 65세 이상 <strong>1,051만 명</strong>. 응급안전안심서비스 예산 288억은 댁내 게이트웨이 중심이라 <strong>외출 중엔 작동하지 않는다</strong>.<a href="#ref-2" class="cite">[2]</a> 정부도 인지하고 있어 2026년 AI 스마트홈 시범사업이 추진 중.<a href="#ref-5" class="cite">[5]</a></div>
+        </div>
+        <div class="why-card">
+          <div class="why-num">Trigger 02</div>
+          <div class="why-title">기술 검증 완료, 학술적 근거 견고</div>
+          <div class="why-body">Google Pixel Watch의 Nature 논문(2025.02),<a href="#ref-6" class="cite">[6]</a> Circulation DETECT-1b(2025)에서 <strong>VF 민감도 100% / PPV 86%</strong>.<a href="#ref-1" class="cite">[1]</a> 우리가 학술 위험을 떠안을 필요가 없다. 위에 올라타면 된다.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-num">Trigger 03</div>
+          <div class="why-title">선례 회사가 만든 길 — 휴이노 메모워치</div>
+          <div class="why-body">손목 ECG로 식약처 2등급 의료기기 허가(2019), 건강보험 급여 등재(2020).<a href="#ref-7" class="cite">[7]</a> 인허가 경로가 이미 닦여 있다. <strong>우리는 ECG 대신 PPG로, 진단 대신 응급 알림으로, 가격은 1/10로</strong>. 시장 포지션이 명확히 다르다.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-num">Trigger 04</div>
+          <div class="why-title">119 우회 경로 검증 — 의정부 모델</div>
+          <div class="why-body">의정부시가 2023년부터 IoT 센서→CCTV통합관제센터→119 다매체 자동 신고를 운영 중.<a href="#ref-4" class="cite">[4]</a> 우리가 처음 만들 게 아니라 <strong>이미 검증된 패턴에 디바이스를 얹는 것</strong>이다.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. HONEST -->
+  <section id="honest">
+    <div class="container">
+      <div class="section-tag">02 · 정직한 자기 인식</div>
+      <h2>제가 <em>아직 못 답하는</em> 질문 세 가지.</h2>
+      <p class="strong-p">평가위원이 첫 5분에 던지는 질문들입니다. 그래서 함께할 사람이 필요합니다.</p>
+
+      <div class="honest-grid">
+        <div class="honest-card">
+          <div class="honest-q">이걸 직접 만드실 수 있나요? 임베디드 펌웨어는 누가 짭니까?</div>
+          <div class="honest-a">의료기기 웨어러블은 펌웨어·하드웨어·통신·앱·서버까지 풀스택. <strong>임베디드 펌웨어 엔지니어가 합류하면 즉시 해결</strong>됩니다. Nordic nRF·Cortex-M 경험 + LTE-M 통합 경험이면 더 좋습니다.</div>
+        </div>
+        <div class="honest-card">
+          <div class="honest-q">의료기기 허가받아 보신 경험 있으세요?</div>
+          <div class="honest-a">최소 2등급 분류 예상. <strong>인허가 경험자가 자문으로만 있어도 평가가 달라집니다</strong>. 휴이노·세닉스·메드틱스·뷰노 출신이 1순위. 풀타임 어려우면 자문위원 (월 50~100만 원 또는 0.5~1% 지분).</div>
+        </div>
+        <div class="honest-card">
+          <div class="honest-q">왜 휴이노가 해 온 시장에 후발로 들어갑니까?</div>
+          <div class="honest-a">차별화는 명확합니다 — <strong>가격 1/10, 폼팩터(e-ink+SOS), 시장 세그먼트(B2G + 요양시설)</strong>. 휴이노는 30만 원대 진단 기기, 우리는 5만 원대 응급 알림. 시장이 겹치지 않습니다.</div>
+        </div>
+      </div>
+
+      <p style="margin-top:20px;font-size:14px;color:var(--ink-mute);">이 세 가지 빈자리를 정직하게 인정하는 게 첫 단추입니다. 그리고 이 빈자리가 곧 <strong style="color:var(--teal)">합류할 사람의 자리</strong>입니다.</p>
+    </div>
+  </section>
+
+  <!-- 3. MATH -->
+  <section id="math">
+    <div class="container">
+      <div class="section-tag">03 · 선발의 수학</div>
+      <h2>팀 한 명 늘리면 통과율이 <em>4~5배</em>.</h2>
+      <p>정부 R&amp;D 과제는 70%가 평가위원 정성 판단. 그중 가장 큰 변수는 "팀 역량 25~30점".<a href="#ref-8" class="cite">[8]</a> 이 항목이 통과율을 결정합니다.</p>
+
+      <div class="prob-vis">
+        <div class="prob-title">조건별 통과율 — 헬스케어 R&amp;D 트랙</div>
+        <div class="prob-sub">예비창업패키지·디딤돌 기준 / 업계 추정<a href="#ref-9" class="cite">[9]</a></div>
+
+        <div class="prob-bar">
+          <div class="prob-label">
+            <span class="prob-label-text">공동창업자 2명 이상 + 관련 분야 경력</span>
+            <span class="prob-label-val">20~25%</span>
+          </div>
+          <div class="prob-track"><div class="prob-fill good" data-w="90"></div></div>
+        </div>
+        <div class="prob-bar">
+          <div class="prob-label">
+            <span class="prob-label-text">1인 + 관련 분야 경력</span>
+            <span class="prob-label-val">10~15%</span>
+          </div>
+          <div class="prob-track"><div class="prob-fill mid" data-w="55"></div></div>
+        </div>
+        <div class="prob-bar">
+          <div class="prob-label">
+            <span class="prob-label-text now">1인 + 무경력 (SilverCare 현재)</span>
+            <span class="prob-label-val">3~7%</span>
+          </div>
+          <div class="prob-track"><div class="prob-fill" data-w="22"></div></div>
+        </div>
+
+        <div class="prob-arrow">
+          지금 그대로 vs 팀 빌딩 후 = <strong>약 5배 차이</strong>
+        </div>
+      </div>
+
+      <p style="margin-top:18px;font-size:14px;">2026년 예비창업패키지는 이미 마감(3월 24일).<a href="#ref-10" class="cite">[10]</a> 다음 진입은 2027년 1~3월. <strong>8개월의 시간이 있고, 이걸 어떻게 쓰느냐가 사업의 출발선을 정합니다.</strong></p>
+    </div>
+  </section>
+
+  <!-- 4. PATH -->
+  <section id="path">
+    <div class="container">
+      <div class="section-tag">04 · 세 가지 길</div>
+      <h2>지금 무엇을 <em>할 것인가</em>.</h2>
+      <p>탭으로 비교해보세요. 결론적으로 B와 C 병행을 권합니다.</p>
+
+      <div class="path-tabs" role="tablist">
+        <button class="path-tab" data-path="a">A · 일단 던진다</button>
+        <button class="path-tab active" data-path="b">B · 기반 다지고 ★</button>
+        <button class="path-tab" data-path="c">C · 우회 트랙</button>
+      </div>
+
+      <div class="path-content" id="path-a">
+        <div class="path-pre">시나리오 A</div>
+        <div class="path-title">"수업료 내고 학습한다"</div>
+        <div class="path-stat">
+          <div>
+            <div class="path-stat-label">투입 시간</div>
+            <div class="path-stat-val">100~150h</div>
+          </div>
+          <div>
+            <div class="path-stat-label">기대 통과율</div>
+            <div class="path-stat-val signal">3~7%</div>
+          </div>
+          <div>
+            <div class="path-stat-label">부산물</div>
+            <div class="path-stat-val">사업계획서</div>
+          </div>
+        </div>
+        <div class="path-body">
+          <p>2027년 1~3월 공고에 그대로 신청. 떨어져도 잃을 게 없다는 관점.</p>
+          <ul>
+            <li><strong>장점:</strong> 작성 과정에서 사업계획서가 정교화. 면접까지 가면 평가위원 피드백이 다음 신청의 자산.</li>
+            <li><strong>단점:</strong> 100~150시간을 팀 빌딩에 쓰면 통과율이 4~5배.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="path-content active" id="path-b">
+        <div class="path-pre recommended">시나리오 B · 권장</div>
+        <div class="path-title">"통과율 25%로 끌어올리고 진입"</div>
+        <div class="path-stat">
+          <div>
+            <div class="path-stat-label">소요 기간</div>
+            <div class="path-stat-val">3~6개월</div>
+          </div>
+          <div>
+            <div class="path-stat-label">기대 통과율</div>
+            <div class="path-stat-val teal">20~25%</div>
+          </div>
+          <div>
+            <div class="path-stat-label">부산물</div>
+            <div class="path-stat-val">실제 추진력</div>
+          </div>
+        </div>
+        <div class="path-body">
+          <p>4가지를 갖추면 게임이 바뀝니다. 어느 하나도 6개월 이상 걸리지 않습니다.</p>
+          <ul>
+            <li><strong>① 공동창업자 또는 핵심 자문 1명</strong> — 의료기기 인허가 경험자 또는 임베디드 펌웨어 엔지니어.</li>
+            <li><strong>② 식약처 사전상담 접수번호 확보</strong> — 무료, 1~2개월.</li>
+            <li><strong>③ LOI 최소 2장</strong> — 의료기관 + 지자체.</li>
+            <li><strong>④ 특허 가출원 완료</strong> — 10~30만 원, 1~2주.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="path-content" id="path-c">
+        <div class="path-pre">시나리오 C · 병행 추천</div>
+        <div class="path-title">"더 쉬운 트랙으로 우회 + 트랙 레코드"</div>
+        <div class="path-stat">
+          <div>
+            <div class="path-stat-label">규모</div>
+            <div class="path-stat-val">3~7천만 원</div>
+          </div>
+          <div>
+            <div class="path-stat-label">기대 통과율</div>
+            <div class="path-stat-val teal">~30%</div>
+          </div>
+          <div>
+            <div class="path-stat-label">부산물</div>
+            <div class="path-stat-val">트랙 레코드</div>
+          </div>
+        </div>
+        <div class="path-body">
+          <p>본 트랙이 부담스러우면 진입 장벽이 낮은 트랙부터.</p>
+          <ul>
+            <li><strong>사회적기업가 육성사업</strong> — 공공성 명확한 SilverCare에 적합. 1인도 가능. 2027.3~4월 공고 예상.<a href="#ref-11" class="cite">[11]</a></li>
+            <li><strong>K-Startup 그랜드 챌린지 / 아이디어 경진대회</strong> — 상금 1~3천만 원. 장벽 낮음.</li>
+            <li><strong>임팩트 투자사 데모데이</strong> — 시드 5천~3억. 소풍벤처스·HGI 등.</li>
+          </ul>
+          <p>B와 병행 가능. 작은 트랙 통과 = 본 트랙 신청 시 강력한 레코드.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. ACTIONS -->
+  <section id="actions">
+    <div class="container">
+      <div class="section-tag">05 · 이번 주부터 시작</div>
+      <h2>지금 당장 시작할 수 있는 <em>일곱 가지</em>.</h2>
+
+      <div class="actions-intro">
+        각 항목은 <strong>병렬로 진행 가능</strong>합니다. 우선순위 없이 동등한 무게로 진행해야 8개월 안에 모두 완성됩니다. 카드를 펼치면 구체적 절차·연락처·비용이 나옵니다.
+      </div>
+
+      <details class="action">
+        <summary>
+          <span class="action-num">01</span>
+          <div class="action-head">
+            <div class="action-title">특허 가출원</div>
+            <div class="action-pills">
+              <span class="pill cost">10~30만 원</span>
+              <span class="pill time">1~2주</span>
+            </div>
+          </div>
+          <span class="chev">▸</span>
+        </summary>
+        <div class="action-body">
+          <p>이미 명세서 초안(<code>SilverCare_특허명세서_초안_v1.docx</code>)이 작성되어 있다. 변리사 1명만 컨택하면 1~2주 내 출원번호 확보 가능.</p>
+          <div class="step-detail">
+            <strong>왜 중요한가:</strong> 출원번호 자체가 사업계획서·LOI 요청 시 "이미 진행 중인 사업"이라는 신호. 식약처 사전상담·복지부 미팅 모두 이 번호가 있는 상태에서 진행하는 게 격이 다르다. 잠재 공동창업자 미팅에서도 신뢰도가 올라간다.
+          </div>
+          <p><strong>구체적 절차:</strong></p>
+          <ol>
+            <li>특허법인 3곳에 견적 요청 (이메일·전화). 의료기기·헬스케어 전문 가산점.
+              <ul><li>추천: <code>광장리앤고</code>, <code>특허법인 인벤투스</code>, <code>특허법인 다래</code></li></ul>
+            </li>
+            <li>견적 비교 후 1곳 선정. 관납료 5~7만 원 + 수임료 10~30만 원.</li>
+            <li>명세서 + 도면 스케치 전달 → 변리사 검토 → 1주 내 출원.</li>
+            <li>출원 후 <strong>12개월 내</strong> 정식 출원(PCT 동시 가능)으로 보완.</li>
+          </ol>
+          <p><strong>주의:</strong> 가출원 전에 어디든 공개 금지 (피칭, 블로그, SNS, 잠재 공동창업자 미팅도 NDA 후 진행).</p>
+        </div>
+      </details>
+
+      <details class="action">
+        <summary>
+          <span class="action-num">02</span>
+          <div class="action-head">
+            <div class="action-title">식약처 의료기기 분류 사전상담 신청</div>
+            <div class="action-pills">
+              <span class="pill cost">무료</span>
+              <span class="pill time">1~2개월</span>
+            </div>
+          </div>
+          <span class="chev">▸</span>
+        </summary>
+        <div class="action-body">
+          <p>식약처가 SilverCare를 어느 등급으로 판정할지에 따라 사업 일정·예산이 2~3배 차이. 사전상담은 무료, 1~2개월. <strong>특허 가출원 직후 진행</strong>.</p>
+          <div class="step-detail">
+            <strong>전략적 가치:</strong> 사업계획서에 "식약처 사전상담 진행 중 (접수번호 XXX)"이라고 적힌 한 줄이 평가위원 인식을 바꾼다. "진짜 한다"는 신호. 또한 등급이 나와야 임상 시험 필요 여부, 인허가 비용, 출시 일정을 정밀하게 추정 가능.
+          </div>
+          <p><strong>구체적 절차:</strong></p>
+          <ol>
+            <li><a href="https://emed.mfds.go.kr" target="_blank" rel="noopener">emed.mfds.go.kr</a> → 회원가입 (사업자 없어도 개인으로 가능)</li>
+            <li>"의료기기 해당 여부 검토 신청" 또는 "사전상담" 메뉴<a href="#ref-12" class="cite">[12]</a></li>
+            <li>제품 사양서, 사용 목적, 작동 원리, 알고리즘 설명 첨부 (이미 명세서에 다 있음)</li>
+            <li>접수 후 1~2개월 내 회신. 등급 분류 + 인허가 절차 안내</li>
+          </ol>
+          <p><strong>참고:</strong> 2025년 5월 디지털의료제품법 시행으로 가이드라인 6종 제·개정.<a href="#ref-3" class="cite">[3]</a> AI 기반 심정지 감지는 신규 분류 가능성.</p>
+        </div>
+      </details>
+
+      <details class="action">
+        <summary>
+          <span class="action-num">03</span>
+          <div class="action-head">
+            <div class="action-title">공동창업자 / 핵심 자문 영입 활동</div>
+            <div class="action-pills">
+              <span class="pill cost">지분 또는 옵션</span>
+              <span class="pill time">2~6개월</span>
+            </div>
+          </div>
+          <span class="chev">▸</span>
+        </summary>
+        <div class="action-body">
+          <p>가장 시간이 걸리고, 가장 효과가 큰 항목. <strong>가장 메우기 어려운 빈자리는 두 개.</strong></p>
+          <div class="step-detail">
+            <strong>핵심 빈자리 1: 의료기기 인허가 경험자</strong><br/>
+            식약처 2등급 이상 허가 경험. 휴이노·세닉스·메드틱스·뷰노 출신이 1순위. 풀타임 어려우면 자문위원 (월 50~100만 원 또는 0.5~1% 지분).
+          </div>
+          <div class="step-detail">
+            <strong>핵심 빈자리 2: 임베디드 펌웨어 엔지니어</strong><br/>
+            Nordic nRF·Cortex-M 경험 + LTE-M(Cat-M1) 통합 경험. 풀타임 공동창업자 베스트. 어려우면 시제품까지 계약직 + 향후 정규직 옵션.
+          </div>
+          <p><strong>영입 채널 (효과 순):</strong></p>
+          <ul>
+            <li><strong>디지털헬스케어파트너스(DHP)</strong> — 김치원·정지훈 대표 컨택. 시니어케어 네트워크 강함.</li>
+            <li><strong>K-Health Startup 모임</strong> — 매월 정기 모임. 인허가·임베디드 인력 풀.</li>
+            <li><strong>링크드인 다이렉트 메시지</strong> — "휴이노", "메모워치", "심전계 인허가" 키워드. 30명 정도에게 한국어 진정성 메시지.</li>
+            <li><strong>KAIST·서울대 의공학 동문회</strong> — 의료기기 산업 인력 풀이 가장 두꺼움.</li>
+            <li><strong>네스토(Nesto) / 로켓펀치 헬스케어 직군</strong> — "공동창업자" 명시 채용 공고.</li>
+          </ul>
+          <p><strong>주의:</strong> 영입 미팅 전 가출원 완료. NDA 서명 후 명세서 공유.</p>
+        </div>
+      </details>
+
+      <details class="action">
+        <summary>
+          <span class="action-num">04</span>
+          <div class="action-head">
+            <div class="action-title">보건복지부 노인지원과 비공식 면담 시도</div>
+            <div class="action-pills">
+              <span class="pill cost">무료</span>
+              <span class="pill time">2~4주</span>
+            </div>
+          </div>
+          <span class="chev">▸</span>
+        </summary>
+        <div class="action-body">
+          <p>정부 사업은 공모 전 사전 협의가 절반. 응급안전안심서비스의 "이동형 보완 모듈" 포지셔닝. 2026년 AI 스마트홈 시범사업 추진 중이라 타이밍 적합.<a href="#ref-5" class="cite">[5]</a></p>
+          <div class="step-detail">
+            <strong>면담 목표:</strong> "사업에 편입 가능한 경로가 있는지" 질의로 시작. 직접 답을 받지 못해도, 그 미팅 자체가 사업계획서에 "정책 협의 진행 중"으로 명시 가능.
+          </div>
+          <p><strong>구체적 절차:</strong></p>
+          <ol>
+            <li>보건복지부 노인정책관실 노인지원과 대표번호로 전화. "응급안전안심서비스 관련 민간 사업자 협의 가능 여부".</li>
+            <li>담당 사무관 이메일 확보 → 공문 1장:
+              <ul>
+                <li>제목: "응급안전안심서비스 이동형 보완 모듈 협의 요청"</li>
+                <li>본문 1장 + 회사 소개 1장</li>
+              </ul>
+            </li>
+            <li>이메일 송부 후 1주 이내 follow-up 전화. 회신 없으면 한국사회보장정보원(<code>safety@ssis.or.kr</code>)에도 발송.<a href="#ref-13" class="cite">[13]</a></li>
+          </ol>
+          <p><strong>병행:</strong> 의정부시 스마트도시과 — IoT→119 운영 사례 청취 미팅 요청. 거의 모두 수락.<a href="#ref-4" class="cite">[4]</a></p>
+        </div>
+      </details>
+
+      <details class="action">
+        <summary>
+          <span class="action-num">05</span>
+          <div class="action-head">
+            <div class="action-title">LOI 확보 (의료기관·지자체)</div>
+            <div class="action-pills">
+              <span class="pill cost">무료</span>
+              <span class="pill time">1~3개월</span>
+            </div>
+          </div>
+          <span class="chev">▸</span>
+        </summary>
+        <div class="action-body">
+          <p>LOI(의향서)는 강제력 없지만, 사업계획서 평가에서 가장 강력한 차별 요소. <strong>최소 2장 목표.</strong></p>
+          <div class="step-detail">
+            <strong>LOI 양식:</strong> A4 1장. "[기관명]은 SilverCare Watch 제품의 임상 검증(또는 PoC) 협조 의향을 표명함" 수준이면 충분. 기관 직인 + 담당자 서명. 무리한 약속은 금물.
+          </div>
+          <p><strong>의료기관 LOI 타깃:</strong></p>
+          <ul>
+            <li><strong>분당서울대병원 응급의학과</strong> — OHCA 연구 활발</li>
+            <li><strong>서울아산병원 응급의학과</strong> — 웨어러블 임상 협력 사례</li>
+            <li><strong>가천대 길병원 디지털헬스케어센터</strong> — 시니어 디바이스 PoC 적극</li>
+          </ul>
+          <p><strong>지자체 LOI 타깃:</strong></p>
+          <ul>
+            <li><strong>의정부시 스마트도시과</strong> — IoT→119 연계 사례 보유</li>
+            <li><strong>수원시 스마트시티추진단</strong> — 시니어 돌봄 IoT 적극</li>
+            <li><strong>고양시·성남시 디지털안전망</strong> — 응급안전안심 운영 중</li>
+          </ul>
+          <p><strong>접근 순서:</strong> 가출원 + 사전상담 완료 후 컨택. "출원번호 + 식약처 접수번호"가 있으면 미팅 수락률 급상승.</p>
+        </div>
+      </details>
+
+      <details class="action">
+        <summary>
+          <span class="action-num">06</span>
+          <div class="action-head">
+            <div class="action-title">ODM 제조사 3곳 BOM 견적</div>
+            <div class="action-pills">
+              <span class="pill cost">무료</span>
+              <span class="pill time">2~4주</span>
+            </div>
+          </div>
+          <span class="chev">▸</span>
+        </summary>
+        <div class="action-body">
+          <p>BOM 양산 단가 ₩38,000 목표가 현실적인지 검증. 사업계획서에 "ODM 3곳 견적 받음 (평균 ₩XX,XXX)" 한 줄이 들어가면 재무 타당성 점수 상승.</p>
+          <p><strong>견적 요청 채널:</strong></p>
+          <ul>
+            <li><strong>국내 ODM:</strong> 인탑스(휴대형 디바이스 전문), 휴맥스네트웍스(IoT), LG이노텍</li>
+            <li><strong>중국 ODM:</strong> 선전 화창베이 ODM. 알리바바 검증된 공급자 5곳 컨택.</li>
+            <li><strong>국내 EMS:</strong> 한국전자기술, AP테크 (소량 시제품 5~10대 가능)</li>
+          </ul>
+          <p><strong>견적 의뢰 시 명시:</strong></p>
+          <ul>
+            <li>MOQ 5만 대 기준 단가</li>
+            <li>BOM: nRF52840 + MAX86141 + LSM6DSO + BG95 + 1.5" e-ink + 380mAh LiPo</li>
+            <li>요구 인증: KC, FCC</li>
+            <li>예상 양산: 2027년</li>
+          </ul>
+          <p>실측 결과 ₩38,000보다 ₩5,000~10,000 높을 가능성 큼. 그래도 견적 자체가 평가 자료로 가치 있음.</p>
+        </div>
+      </details>
+
+      <details class="action">
+        <summary>
+          <span class="action-num">07</span>
+          <div class="action-head">
+            <div class="action-title">사업자등록 + KOITA 기업부설연구소 인증</div>
+            <div class="action-pills">
+              <span class="pill cost">무료</span>
+              <span class="pill time">1개월</span>
+            </div>
+          </div>
+          <span class="chev">▸</span>
+        </summary>
+        <div class="action-body">
+          <p>예비창업패키지는 사업자 미보유 상태에서만 신청 가능. 디딤돌·TIPS는 사업자 필요. 우선순위에 따라 결정.</p>
+          <div class="step-detail">
+            <strong>전략적 선택:</strong>
+            <ul>
+              <li>예창패 우선 (2027.1~3) → 선정 시 협약 단계에서 등록 → 이후 KOITA<a href="#ref-14" class="cite">[14]</a></li>
+              <li>예창패 포기, 사회적기업가 + 디딤돌 동시 신청 → 사업자 선행</li>
+            </ul>
+          </div>
+          <p><strong>KOITA 기업부설연구소 인증:</strong></p>
+          <ul>
+            <li>비용 무료, 1개월</li>
+            <li>요건: 연구전담요원 1명 이상 (대표 본인도 가능, 학력·경력 요건 충족 필요)</li>
+            <li>효과: R&amp;D 과제 가점, 연구개발비 세액공제, 연구원 병역특례</li>
+            <li>SilverCare처럼 R&amp;D 비중 높은 사업은 2~3천만 원 가치</li>
+          </ul>
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <!-- 6. TIMELINE -->
+  <section id="timeline">
+    <div class="container">
+      <div class="section-tag">06 · 8개월 로드맵</div>
+      <h2>2027년 1월 본 게임까지의 <em>경로</em>.</h2>
+
+      <div class="timeline">
+        <div class="tl-item now">
+          <div class="tl-when">2026.05 · 지금</div>
+          <div class="tl-what">특허 가출원 + 식약처 사전상담 접수</div>
+          <div class="tl-detail">변리사 컨택 1~2주. 동시에 식약처 emed 사이트 사전상담 신청. 영입 활동 동시 시작.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-when">2026.06 — 07</div>
+          <div class="tl-what">팀 빌딩 집중 + LOI 확보 활동</div>
+          <div class="tl-detail">의료기기 인허가 경험자 자문 영입. 분당서울대·의정부시 LOI 요청. 보건복지부 미팅 시도.</div>
+        </div>
+        <div class="tl-item milestone">
+          <div class="tl-when">2026.07</div>
+          <div class="tl-what">식약처 회신 → 의료기기 등급 확정</div>
+          <div class="tl-detail">사업계획서·재무계획 보정. 등급 분류에 맞춰 인허가 일정 정밀화.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-when">2026.08 — 09</div>
+          <div class="tl-what">ODM 견적 + 워킹 목업 1대</div>
+          <div class="tl-detail">3곳 BOM 견적 비교. 워킹 목업 제작 (500~1,000만 원 자비 또는 엔젤).</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-when">2026.10 — 11</div>
+          <div class="tl-what">사업계획서 v1 완성 + 발표 연습</div>
+          <div class="tl-detail">평가 항목별 점수 시뮬레이션. 모의 발표 3회 이상 (멘토·자문위원 대상).</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-when">2026.12</div>
+          <div class="tl-what">K-Startup 사전 등록 + 주관기관 선택</div>
+          <div class="tl-detail">헬스케어 강점 기관 우선. 권역 내 기관 매칭.</div>
+        </div>
+        <div class="tl-item milestone">
+          <div class="tl-when">2027.01 — 03</div>
+          <div class="tl-what">예창패 + 디딤돌 + 사회적기업가 동시 신청</div>
+          <div class="tl-detail">세 트랙 동시 신청으로 통과율 분산. 통과 시 협약 단계에서 사업자등록 → KOITA 인증.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. CALLING -->
+  <section id="calling">
+    <div class="container">
+      <div class="section-tag">07 · 함께할 사람</div>
+      <h2>이런 분을 <em>찾습니다</em>.</h2>
+
+      <div class="calling">
+        <div class="calling-tag">함께 만들 사람</div>
+        <div class="calling-headline">초고령사회 응급망의 빈자리를 <em>같이 채우실 분</em>을 찾습니다.</div>
+        <div class="calling-body">
+          <p>SilverCare는 기술적으로 검증되었고, 시장은 명확하고, 정부는 움직이고 있습니다. <strong>지금 합류하면 8개월 안에 사업의 출발점이 만들어집니다.</strong> 시드 단계 합류의 의미가 가장 큰 순간입니다.</p>
+
+          <ul class="calling-list">
+            <li>
+              <span class="role">CTO급</span>
+              <span class="desc"><strong>임베디드 펌웨어 공동창업자</strong> · Nordic nRF·Cortex-M 경험. LTE-M 통합 경험이면 더 좋음. 시제품부터 양산까지 책임.</span>
+            </li>
+            <li>
+              <span class="role">자문위원</span>
+              <span class="desc"><strong>의료기기 인허가 경험자</strong> · 식약처 2등급 이상 허가 경험. 휴이노·세닉스·뷰노 출신 1순위. 월 50~100만 원 또는 0.5~1% 지분.</span>
+            </li>
+            <li>
+              <span class="role">자문위원</span>
+              <span class="desc"><strong>응급의학과·노인의학과 교수</strong> · 임상 협력 가능한 분. 분당서울대·서울아산·가천대길병원 우대.</span>
+            </li>
+            <li>
+              <span class="role">엔젤</span>
+              <span class="desc"><strong>시드 엔젤 투자자</strong> · 워킹 목업 제작·인허가 비용 1,000~3,000만 원. 디지털헬스케어·시니어케어 전문 우대.</span>
+            </li>
+          </ul>
+
+          <p style="font-size:13.5px;color:var(--ink-mute);margin-top:18px;padding-top:18px;border-top:1px dashed var(--line);">관심 있으시면 NDA 후 명세서·재무 모델 공유 가능합니다. 1차 미팅은 30분 카페 톡 수준으로 가볍게 시작합니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="fr-footer">
+    <div class="container">
+      <div class="refs">
+        <h3>출처 · References</h3>
+        <ul class="ref-list">
+          <li id="ref-1">
+            <span class="ref-src">Circulation: Arrhythmia and Electrophysiology, "Automated Cardiac Arrest Detection Using Wrist-Worn PPG: DETECT-1b" (2025)</span>
+            <a href="https://www.ahajournals.org/doi/full/10.1161/CIRCEP.125.014708" target="_blank" rel="noopener">ahajournals.org — VF 민감도 100%, PPV 86%</a>
+          </li>
+          <li id="ref-2">
+            <span class="ref-src">마이버짓 / 열린재정, "독거노인·중증장애인 응급안전안심서비스 사업추진현황 (2023년 예산 288.47억)"</span>
+            <a href="https://www.mybudget.go.kr/budgetBsnsInfo/executionResultView?in_year=2023&cndcy_no=T2300018" target="_blank" rel="noopener">mybudget.go.kr — 응급안전안심서비스 예산</a>
+          </li>
+          <li id="ref-3">
+            <span class="ref-src">Lexology, "식약처, 디지털의료기기 관련 가이드라인 6종 제·개정" (2025.05.13)</span>
+            <a href="https://www.lexology.com/library/detail.aspx?g=516ed348-16f2-48f0-9545-dc8a061790d5" target="_blank" rel="noopener">lexology.com — 디지털의료제품법 시행</a>
+          </li>
+          <li id="ref-4">
+            <span class="ref-src">경기북부탑뉴스, "의정부시, 전국 최초 AI와 IoT 센서 결합한 119 다매체 신고체계 구축" (2023.07.28)</span>
+            <a href="https://www.gbtopnews.net/news/articleView.html?idxno=94449" target="_blank" rel="noopener">gbtopnews.net — 의정부 119 자동신고</a>
+          </li>
+          <li id="ref-5">
+            <span class="ref-src">헬스앤뉴스, "2026 시니어 산업 — 보건복지부 AI 스마트홈·스마트복지시설 시범사업 추진"</span>
+            <a href="https://www.hnews.kr/news/view.php?no=67605" target="_blank" rel="noopener">hnews.kr — 시니어 산업 트렌드</a>
+          </li>
+          <li id="ref-6">
+            <span class="ref-src">Nature, "Automated loss of pulse detection on a consumer smartwatch" (2025.02.26)</span>
+            <a href="https://www.nature.com/articles/s41586-025-08810-9" target="_blank" rel="noopener">nature.com — Google Pixel Watch 임상</a>
+          </li>
+          <li id="ref-7">
+            <span class="ref-src">한국경제, "휴이노, 시계형 심전도 장치 메모 워치 식약처 허가" (2019.03.25)</span>
+            <a href="https://www.hankyung.com/article/201903252376f" target="_blank" rel="noopener">hankyung.com — 휴이노 2등급 허가</a>
+          </li>
+          <li id="ref-8">
+            <span class="ref-src">Eagler Lab, "2026 초기창업패키지 지원 자격·평가 항목" (2026.01)</span>
+            <a href="https://eagler.blog/2025/11/19/2026-%EC%B4%88%EA%B8%B0%EC%B0%BD%EC%97%85%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%A7%80%EC%9B%90-%EC%9E%90%EA%B2%A9-%EC%8B%A0%EC%B2%AD-%EC%A0%88%EC%B0%A8-%ED%8F%89%EA%B0%80-%ED%95%AD%EB%AA%A9%EA%B9%8C/" target="_blank" rel="noopener">eagler.blog — 초기창업패키지 평가 기준</a>
+          </li>
+          <li id="ref-9">
+            <span class="ref-src">통과율 추정치는 공식 통계가 아닌 합격자 분석 글·운영기관 발표 자료를 종합한 업계 추정. 정확한 통계는 K-Startup 공식 데이터 참조 권장.</span>
+          </li>
+          <li id="ref-10">
+            <span class="ref-src">중소벤처기업부, "2026년 예비창업패키지 모집 공고" (접수 2026.03.06~03.24)</span>
+            <a href="https://www.bizinfo.go.kr/sii/siia/selectSIIA200Detail.do?pblancId=PBLN_000000000119019" target="_blank" rel="noopener">bizinfo.go.kr — 2026 예창패 공고</a>
+          </li>
+          <li id="ref-11">
+            <span class="ref-src">한국사회적기업진흥원, "2026년 사회적기업 창업지원사업 창업팀 모집 공고" (3.30~4.17)</span>
+            <a href="https://www.wevity.com/index.php?c=find&s=1&gub=4&cidx=46&gbn=viewok&gp=1&ix=106472" target="_blank" rel="noopener">위비티 — 사회적기업가 육성사업</a>
+          </li>
+          <li id="ref-12">
+            <span class="ref-src">정부24, "의료기기 해당 여부 검토 신청"</span>
+            <a href="https://www.gov.kr/mw/AA020InfoCappView.do?HighCtgCD=A06002&CappBizCD=14700000653" target="_blank" rel="noopener">gov.kr — 의료기기 검토 신청</a>
+          </li>
+          <li id="ref-13">
+            <span class="ref-src">한국사회보장정보원, "응급안전안심서비스 FAQ" (담당: safety@ssis.or.kr)</span>
+            <a href="http://www.ssis.or.kr/lay1/bbs/S1T113C123/G/46/list.do" target="_blank" rel="noopener">ssis.or.kr — 디지털돌봄시스템</a>
+          </li>
+          <li id="ref-14">
+            <span class="ref-src">한국산업기술진흥협회(KOITA), 기업부설연구소 인증 안내</span>
+            <a href="https://www.rnd.or.kr/" target="_blank" rel="noopener">rnd.or.kr — KOITA 연구소 인증</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="colophon">
+        SilverCare Watch · 함께 만들 사람을 찾습니다 v1.0<br/>
+        작성: 2026.05.19 · 모바일 우선 · 잠재 공동창업자·자문위원·엔젤 투자자용<br/>
+        관심 있으신 분은 NDA 후 명세서·재무 모델 공유 가능합니다.
+      </div>
+    </div>
+  </div>
+
+</section>
+
 </main>
 
 <footer>
@@ -2179,6 +3004,67 @@
       }, 2000);
     });
   }
+
+  // ===== TAB 06: 팀 모집 (funding) =====
+  (function(){
+    const root = document.getElementById('funding');
+    if(!root) return;
+
+    // path/scenario tabs
+    const pTabs = root.querySelectorAll('.path-tab');
+    const pContents = root.querySelectorAll('.path-content');
+    pTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const t = tab.dataset.path;
+        pTabs.forEach(x => x.classList.remove('active'));
+        pContents.forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        const el = document.getElementById('path-' + t);
+        if(el) el.classList.add('active');
+      });
+    });
+
+    // probability bar animation
+    const bars = root.querySelectorAll('.prob-fill');
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          const fill = entry.target;
+          setTimeout(() => { fill.style.width = fill.dataset.w + '%'; }, 100);
+          barObserver.unobserve(fill);
+        }
+      });
+    }, { threshold: 0.3 });
+    bars.forEach(b => barObserver.observe(b));
+
+    // sticky toc active state
+    const navLinks = root.querySelectorAll('nav.toc a');
+    const frSections = root.querySelectorAll('section[id]');
+    const secObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          const id = entry.target.id;
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    frSections.forEach(s => secObserver.observe(s));
+
+    // smooth scroll for cite links
+    root.querySelectorAll('a.cite').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = root.querySelector(link.getAttribute('href'));
+        if(target){
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          target.style.background = 'rgba(230,57,70,0.12)';
+          setTimeout(() => { target.style.background = 'transparent'; }, 2000);
+        }
+      });
+    });
+  })();
 </script>
 
 </body>
